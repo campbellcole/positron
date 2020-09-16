@@ -2,31 +2,46 @@
   "name": "positron",
   "version": "0.0.1-dev",
   "author": "Campbell M. Cole",
-  "main": "./electron/main.js",
+  "main": "./public/electron.js",
+  "description": "homework manager by campbell cole",
   "homepage": "./",
   "private": true,
   "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-icons": "^3.11.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "shards-react": "^1.0.3"
+  },
+  "devDependencies": {
     "concurrently": "^5.3.0",
     "electron": "^10.1.1",
     "electron-builder": "^22.8.0",
     "electron-is-dev": "^1.2.0",
-    "node-sass": "^4.14.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
     "wait-on": "^5.2.0"
   },
   "scripts": {
-    "start": "concurrently \"npm run serve\" \"wait-on http://localhost:3000 && electron .\"",
+    "start": "rmdir /Q /S %APPDATA%\\positron && concurrently \"npm run serve\" \"wait-on http://localhost:3000 && electron .\"",
     "serve": "react-scripts start",
     "build": "react-scripts build",
-    "ebuild": "npm run build && node_modules/.bin/build",
+    "preelectron-pack": "npm run build",
+    "electron-pack": "electron-builder",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "build": {
+    "appId": "com.campbellcole.positron",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "browserslist": {
     "production": [

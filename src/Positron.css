@@ -1,0 +1,12 @@
+.view_selector {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.btn {
+  outline: none;
+}
+
+a {
+  text-decoration: none !important;
+}

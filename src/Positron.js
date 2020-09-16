@@ -1,18 +1,34 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { Component } from 'react'
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
+import { ButtonGroup } from 'shards-react'
+import { HashRouter, Link, Route } from 'react-router-dom'
+import ListView from './views/ListView/ListView'
+import './Positron.css'
+
+const GroupLink = React.forwardRef((props, ref) => (
+  <a href={props.href} className='btn btn-dark'>Group List</a>
+))
+const CalendarLink = React.forwardRef((props, ref) => (
+  <a href={props.href} className='btn btn-dark'>Calendar View</a>
+))
+const ListLink = React.forwardRef((props, ref) => (
+  <a href={props.href} className='btn btn-dark'>List View</a>
+))
+
 
 export default class Positron extends Component {
   render() {
     return (
-      <div>
-        <Header>
-          Homework Manager
-        </Header>
-        <Footer>
-          With &#128420; by Campbell Cole
-        </Footer> 
+      <div className='app'>
+        <HashRouter hashType='noslash'>
+          <div className='view_selector'>
+            <ButtonGroup size='sm'>
+              <Link to='/group' component={GroupLink} />
+              <Link to='/calendar' component={CalendarLink} />
+              <Link to='/list' component={ListLink} />
+            </ButtonGroup>
+          </div>
+          <Route path='/list' component={ListView} />
+        </HashRouter>
       </div>
     )
   }

@@ -1,8 +1,10 @@
 h3 {
-  padding: 0; margin: 0;
+  padding: 6px;
+  padding-top: 4px;
+  margin: 0;
 }
 
-.header {
+.banner {
   margin-top: 1vw;
   text-align: center;
   background-color: #202324bc;
@@ -13,33 +15,33 @@ h3 {
 }
 
 @media screen and (max-width: 767px) {
-  .header {
+  .banner {
     padding-bottom: 5px;
   }
-  .header-text {
+  .banner-text {
     font-size: 32px;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .header {
+  .banner {
     padding-bottom: 8px;
   }
-  .header-text {
+  .banner-text {
     font-size: 44px;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .header {
+  .banner {
     padding-bottom: 12px;
   }
-  .header-text {
+  .banner-text {
     font-size: 50px;
   }
 }
 
-.header-text {
+.banner-text {
   font-family: "News Cycle", sans-serif;
   color: #bfb9b1;
 }
