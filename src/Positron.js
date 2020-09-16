@@ -3,6 +3,7 @@ import { ButtonGroup } from 'shards-react'
 import { HashRouter, Link, Route } from 'react-router-dom'
 import ListView from './views/ListView/ListView'
 import './Positron.css'
+const { ipcRenderer } = window.require('electron')
 
 const GroupLink = React.forwardRef((props, ref) => (
   <a href={props.href} className='btn btn-dark'>Group List</a>
@@ -13,7 +14,6 @@ const CalendarLink = React.forwardRef((props, ref) => (
 const ListLink = React.forwardRef((props, ref) => (
   <a href={props.href} className='btn btn-dark'>List View</a>
 ))
-
 
 export default class Positron extends Component {
   render() {
@@ -32,4 +32,15 @@ export default class Positron extends Component {
       </div>
     )
   }
+}
+
+function getTasks(callback) {
+  ipcRenderer.send('command', 'getTasks')
+  ipcRenderer.on('tasks', (event, tasks) => {
+    callback(tasks)
+  })
+}
+
+export {
+  getTasks
 }

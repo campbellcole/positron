@@ -17,7 +17,7 @@ ReactDOM.render(
     <Positron />
     <Footer>
       With &#128420; by Campbell Cole
-    </Footer> 
+    </Footer>
   </React.StrictMode>,
   document.getElementById('positron')
 )

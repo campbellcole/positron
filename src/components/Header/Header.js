@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { MdRemove, MdClose, MdFullscreen, MdFullscreenExit } from 'react-icons/md'
+import { AiOutlineDrag } from 'react-icons/ai'
 import './Header.css'
 const { ipcRenderer } = window.require('electron')
 
@@ -14,16 +15,21 @@ export default class Header extends Component {
   render() {
     return (
       <div className='header'>
-        <span id='control_close' className='control' onClick={this.sendClose}><MdClose /></span>
-        <span id='control_maximize' className='control' onClick={this.sendMaximize}>
-          { this.state.isMaximized && 
-            <MdFullscreenExit />
-          }
-          { !this.state.isMaximized &&
-            <MdFullscreen />
-          }
-        </span>
-        <span id='control_minimize' className='control' onClick={this.sendMinimize}><MdRemove /></span>
+        <div className='header-grabber'>
+          <span id='control_drag' className='control drag'><AiOutlineDrag /></span>
+        </div>
+        <div className='header-controls'>
+          <span id='control_close' className='control' onClick={this.sendClose}><MdClose /></span>
+          <span id='control_maximize' className='control' onClick={this.sendMaximize}>
+            { this.state.isMaximized && 
+              <MdFullscreenExit />
+            }
+            { !this.state.isMaximized &&
+              <MdFullscreen />
+              }
+          </span>
+          <span id='control_minimize' className='control' onClick={this.sendMinimize}><MdRemove /></span>
+        </div>
       </div>
     )
   }

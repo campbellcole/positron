@@ -1,17 +1,46 @@
 .header {
-  background-color: rgb(77, 77, 77);
+  margin: 0;
+}
+
+.header-grabber {
+  position: fixed;
+  left: 8px;
+  top: 10px;
+}
+
+.header-controls {
+  position: fixed;
+  right: 5px;
+  top: 5px;
   display: flex;
   flex-direction: row-reverse;
-  margin: 0;
-  -webkit-app-region: drag;
+}
+
+.control:not(:first-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.control:not(:last-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .control {
   margin: 0;
+  backdrop-filter: blur(5px);
+  background-color: rgba(201, 200, 200, 0.082);
   transition: all 0.25s;
   padding: 5px 10px 1px 10px;
   color: rgb(17, 17, 17);
-  -webkit-app-region: no-drag;
+  border-radius: 15px;
+}
+
+.drag {
+  padding: 7px 44px 2px 44px;
+  backdrop-filter: none;
+  background-color: rgb(73, 73, 73);
+  -webkit-app-region: drag;
 }
 
 .control:hover {
