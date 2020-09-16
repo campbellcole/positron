@@ -1,3 +1,5 @@
+@import '../../shared';
+
 h3 {
   padding: 6px;
   padding-top: 4px;
@@ -9,8 +11,8 @@ h3 {
   text-align: center;
   background-color: #202324bc;
   padding-bottom: 5px;
-  border-top: 2px solid #736b5e;
-  border-bottom: 2px solid #736b5e;
+  border-top: 2px solid $border-color;
+  border-bottom: 2px solid $border-color;
   box-shadow: 0px 5px 8px #111;
 }
 
@@ -42,6 +44,6 @@ h3 {
 }
 
 .banner-text {
-  font-family: "News Cycle", sans-serif;
-  color: #bfb9b1;
+  font-family: $font-family;
+  color: $text-color-light;
 }

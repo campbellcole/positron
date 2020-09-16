@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { getTasks } from '../../Positron'
+import { bindTasks } from '../../Positron'
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'shards-react'
-import './ListView.css'
+import { Link } from 'react-router-dom'
+import './ListView.scss'
+import { AddLink } from '../../Links'
 
 export default class ListView extends Component {
   constructor() {
@@ -10,9 +12,11 @@ export default class ListView extends Component {
   }
   render() {
     return (
-      <div className='list-container'>
       <div className='list-view'>
         <ListGroup>
+          <ListGroupItem key={-1} action className='item-add-btn'>
+            <Link to='/add' component={AddLink} />
+          </ListGroupItem>
           { this.state.tasks.map((value, index) => {
             return (
               <ListGroupItem key={index} action>
@@ -23,10 +27,9 @@ export default class ListView extends Component {
           })}
         </ListGroup>
       </div>
-      </div>
     )
   }
   componentDidMount() {
-    getTasks((tasks) => this.setState({tasks: tasks}))
+    bindTasks((tasks) => this.setState({tasks: tasks}))
   }
 }

@@ -1,3 +1,5 @@
+@import '../../shared';
+
 ul {
   padding-inline-start: 0;
   list-style-type: none;
@@ -6,10 +8,9 @@ ul {
 }
 
 .list-view {
-  margin-top: 15px;
   overflow-y: scroll;
   height: 78vh;
-  margin: 15px 5px 0px 15px;
+  margin: 0px 5px 0px 15px;
   scroll-margin-block: 100px;
 }
 
@@ -43,15 +44,21 @@ ul {
 }
 
 .list-group-item-heading {
-  color: rgb(180, 179, 166);
+  color: $text-color-light;
 }
 
 .list-group-item {
-  color: rgb(219, 217, 207);
+  color: $text-color;
   background-color: rgb(63, 63, 63);
 }
 
 .list-group-item-action:hover {
-  color: rgb(219, 217, 207);
+  color: $text-color;
   background-color: rgb(48, 48, 48);
+}
+
+.item-add-btn {
+  padding: 0;
+  font-family: $font-family;
+  color: $text-color-light;
 }

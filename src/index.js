@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import 'shards-ui/dist/css/shards.min.css'
-import './index.css'
+import './index.scss'
 import Positron from './Positron'
 import Header from './components/Header/Header'
 import Banner from './components/Banner/Banner'

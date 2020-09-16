@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { MdRemove, MdClose, MdFullscreen, MdFullscreenExit } from 'react-icons/md'
 import { AiOutlineDrag } from 'react-icons/ai'
-import './Header.css'
+import './Header.scss'
 const { ipcRenderer } = window.require('electron')
 
 export default class Header extends Component {

@@ -1,71 +1,9 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const isDev = require('electron-is-dev');
-const path = require('path');
+const { app, BrowserWindow, ipcMain } = require('electron')
+const isDev = require('electron-is-dev')
+const path = require('path')
+const TaskStore = require('./TaskStore')
 
-var mainWindow;
-
-const tempTasks = [
-  {
-    id: 0,
-    title: 'test',
-    due: new Date().getTime(),
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 1,
-    title: 'testing!',
-    due: 0,
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 2,
-    title: 'when?',
-    due: 11325712895,
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 3,
-    title: 'now',
-    due: new Date().getTime(),
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 4,
-    title: 'ok',
-    due: new Date().getTime(),
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 4,
-    title: 'ok',
-    due: new Date().getTime(),
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 4,
-    title: 'ok',
-    due: new Date().getTime(),
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 4,
-    title: 'ok',
-    due: new Date().getTime(),
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 4,
-    title: 'ok',
-    due: new Date().getTime(),
-    groups: ['test', 'test1', 'test2']
-  },
-  {
-    id: 4,
-    title: 'ok',
-    due: new Date().getTime(),
-    groups: ['test', 'test1', 'test2']
-  },
-]
+var mainWindow, taskStore
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -82,9 +20,10 @@ function createWindow() {
   mainWindow.loadURL(mainURL);
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-    mainWindow.openDevTools({mode: 'detach'})
+    mainWindow.openDevTools({mode: 'undocked'})
   });
   mainWindow.on('closed', () => mainWindow = null);
+  taskStore = new TaskStore();
   ipcMain.on('command', (event, command) => {
     switch (command) {
       case 'close':
@@ -98,11 +37,15 @@ function createWindow() {
         mainWindow.minimize()
         break
       case 'getTasks':
-        mainWindow.webContents.send('tasks', tempTasks)
+        mainWindow.webContents.send('tasks', taskStore.getTasks())
         break
       default: 
         break
     }
+  })
+  ipcMain.on('addTask', (event, task) => {
+    taskStore.add(task)
+    mainWindow.webContents.send('tasks', taskStore.getTasks())
   })
 }
 

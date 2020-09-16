@@ -1,0 +1,13 @@
+@import '../../shared';
+
+.add-task {
+  background-color: rgb(75, 75, 75);
+  width: 75vw;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.add-task label {
+  font-family: $font-family;
+  color: $text-color;
+}

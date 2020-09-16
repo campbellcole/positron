@@ -2,20 +2,21 @@ import React, { Component } from 'react'
 import { ButtonGroup } from 'shards-react'
 import { HashRouter, Link, Route } from 'react-router-dom'
 import ListView from './views/ListView/ListView'
-import './Positron.css'
+import AddTaskView from './views/AddTaskView/AddTaskView'
+import './Positron.scss'
+import { GroupLink, CalendarLink, ListLink } from './Links'
 const { ipcRenderer } = window.require('electron')
 
-const GroupLink = React.forwardRef((props, ref) => (
-  <a href={props.href} className='btn btn-dark'>Group List</a>
-))
-const CalendarLink = React.forwardRef((props, ref) => (
-  <a href={props.href} className='btn btn-dark'>Calendar View</a>
-))
-const ListLink = React.forwardRef((props, ref) => (
-  <a href={props.href} className='btn btn-dark'>List View</a>
-))
-
+var callbacks = [];
 export default class Positron extends Component {
+  constructor() {
+    super()
+    ipcRenderer.on('tasks', (event, tasks) => {
+      for (var i = 0; i < callbacks.length; i++) {
+        callbacks[i](tasks)
+      }
+    })
+  }
   render() {
     return (
       <div className='app'>
@@ -28,19 +29,18 @@ export default class Positron extends Component {
             </ButtonGroup>
           </div>
           <Route path='/list' component={ListView} />
+          <Route path='/add' component={AddTaskView} />
         </HashRouter>
       </div>
     )
   }
 }
 
-function getTasks(callback) {
+function bindTasks(callback) {
+  callbacks.push(callback)
   ipcRenderer.send('command', 'getTasks')
-  ipcRenderer.on('tasks', (event, tasks) => {
-    callback(tasks)
-  })
 }
 
 export {
-  getTasks
+  bindTasks
 }
