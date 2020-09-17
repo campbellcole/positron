@@ -1,13 +1,53 @@
 @import '../../shared';
 
 .add-task {
-  background-color: rgb(75, 75, 75);
-  width: 75vw;
+  background-color: $card-color-light;
+  width: 65vw;
   margin: 0 auto;
+  border-radius: 6px;
   padding: 5px;
+  h2 {
+    margin-top: 5px;
+    color: $text-color-light;
+  }
+  label {
+    font-family: $font-family;
+    color: $text-color-light;
+  }
 }
 
-.add-task label {
-  font-family: $font-family;
-  color: $text-color;
+.task-form {
+  margin: 10px 30px;
+}
+
+.label-pair {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+  input, select {
+    color: $text-color-light;
+    outline: none;
+    text-decoration: none !important;
+    border-width: 0px;
+    flex-grow: 1;
+  }
+  select {
+    background-color: $card-color-dark;
+  }
+  input {
+    background-color: rgba(39, 39, 39, 0.322);
+  }
+  select {
+    text-align-last: center;
+  }
+  label {
+    width: 100px;
+  }
+}
+
+.label-text {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

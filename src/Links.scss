@@ -1,5 +1,7 @@
+@import 'shared';
+
 .add-btn-list {
-  color: rgb(180, 179, 166);
+  color: $text-color-light;
   text-decoration: none;
   display: block;
   text-align: center;
@@ -7,5 +9,5 @@
 }
 
 .add-btn-list:hover {
-  color: rgb(180, 179, 166);
+  color: $text-color-light;
 }

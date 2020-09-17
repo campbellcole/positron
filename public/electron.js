@@ -15,15 +15,12 @@ function createWindow() {
       nodeIntegration: true,
     },
     resizable: false
-  });
-  const mainURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`;
-  mainWindow.loadURL(mainURL);
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show()
-    mainWindow.openDevTools({mode: 'undocked'})
-  });
-  mainWindow.on('closed', () => mainWindow = null);
-  taskStore = new TaskStore();
+  })
+  const mainURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
+  mainWindow.loadURL(mainURL)
+  mainWindow.once('ready-to-show', () => mainWindow.show())
+  mainWindow.on('closed', () => mainWindow = null)
+  taskStore = new TaskStore()
   ipcMain.on('command', (event, command) => {
     switch (command) {
       case 'close':
@@ -36,6 +33,9 @@ function createWindow() {
       case 'minimize':
         mainWindow.minimize()
         break
+      case 'openTools':
+        mainWindow.openDevTools({ mode: 'detach'})
+        break;
       case 'getTasks':
         mainWindow.webContents.send('tasks', taskStore.getTasks())
         break
@@ -49,4 +49,4 @@ function createWindow() {
   })
 }
 
-app.on('ready', createWindow);
+app.on('ready', createWindow)

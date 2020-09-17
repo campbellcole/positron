@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { MdRemove, MdClose, MdFullscreen, MdFullscreenExit } from 'react-icons/md'
 import { AiOutlineDrag } from 'react-icons/ai'
+import { DiTerminal } from 'react-icons/di'
 import './Header.scss'
 const { ipcRenderer } = window.require('electron')
 
@@ -11,6 +12,7 @@ export default class Header extends Component {
     this.sendClose = this.sendClose.bind(this)
     this.sendMaximize = this.sendMaximize.bind(this)
     this.sendMinimize = this.sendMinimize.bind(this)
+    this.sendOpenTools = this.sendOpenTools.bind(this)
   }
   render() {
     return (
@@ -29,6 +31,7 @@ export default class Header extends Component {
               }
           </span>
           <span id='control_minimize' className='control' onClick={this.sendMinimize}><MdRemove /></span>
+          <span id='control_devtools' className='control' onClick={this.sendOpenTools}><DiTerminal /></span>
         </div>
       </div>
     )
@@ -42,5 +45,8 @@ export default class Header extends Component {
   }
   sendMinimize() {
     ipcRenderer.send('command', 'minimize')
+  }
+  sendOpenTools() {
+    ipcRenderer.send('command', 'openTools')
   }
 }
