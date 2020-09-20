@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { bindTasks } from '../../Positron'
+import { ipc_get } from '../../util'
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'shards-react'
 import { Link } from 'react-router-dom'
 import './ListView.scss'
@@ -30,6 +30,6 @@ export default class ListView extends Component {
     )
   }
   componentDidMount() {
-    bindTasks((tasks) => this.setState({tasks: tasks}))
+    ipc_get('tasks').then((tasks) => this.setState({ tasks: tasks }))
   }
 }

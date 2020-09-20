@@ -8,3 +8,18 @@ $background-color: #181A1B;
 $foreground-color: #202324;
 $card-color-light: #3F3F3F;
 $card-color-dark: #303030;
+$card-color-darker: #242424;
+$card-color-darkest: #1D1D1D;
+
+:export {
+  textColor: $text-color;
+  textColorLight: $text-color-light;
+  fontFamily: $font-family;
+  borderColor: $border-color;
+  backgroundColor: $background-color;
+  foregroundColor: $foreground-color;
+  cardColorLight: $card-color-light;
+  cardColorDark: $card-color-dark;
+  cardColorDarker: $card-color-darker;
+  cardColorDarkest: $card-color-darkest;
+}

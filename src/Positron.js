@@ -5,18 +5,8 @@ import ListView from './views/ListView/ListView'
 import AddTaskView from './views/AddTaskView/AddTaskView'
 import './Positron.scss'
 import { GroupLink, CalendarLink, ListLink } from './Links'
-const { ipcRenderer } = window.require('electron')
 
-var callbacks = [];
 export default class Positron extends Component {
-  constructor() {
-    super()
-    ipcRenderer.on('tasks', (event, tasks) => {
-      for (var i = 0; i < callbacks.length; i++) {
-        callbacks[i](tasks)
-      }
-    })
-  }
   render() {
     return (
       <div className='app'>
@@ -34,13 +24,4 @@ export default class Positron extends Component {
       </div>
     )
   }
-}
-
-function bindTasks(callback) {
-  callbacks.push(callback)
-  ipcRenderer.send('command', 'getTasks')
-}
-
-export {
-  bindTasks
 }

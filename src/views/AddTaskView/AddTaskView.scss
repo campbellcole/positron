@@ -23,18 +23,23 @@
 .label-pair {
   display: flex;
   width: 100%;
-  margin-bottom: 10px;
-  input, select {
+  margin-bottom: 8px;
+  input, select, textarea, button {
     color: $text-color-light;
     outline: none;
     text-decoration: none !important;
     border-width: 0px;
     flex-grow: 1;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  }
+  textarea {
+    resize: none;
+    min-height: 100px;
   }
   select {
     background-color: $card-color-dark;
   }
-  input {
+  input, textarea {
     background-color: rgba(39, 39, 39, 0.322);
   }
   select {
@@ -46,8 +51,24 @@
 }
 
 .label-text {
+  position: relative;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.submit-btn {
+  padding: 2px 0;
+  background-color: $card-color-dark;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: $card-color-darker;
+}
+
+.submit-btn:active {
+  background-color: $card-color-darkest;
 }

@@ -10,7 +10,44 @@ class TaskStore {
   }
   
   getTasks() {
-    return this.data.tasks
+    return [
+      {
+        id: 0,
+        title: 'test',
+        due: 7586345643875,
+        description: 'test description',
+        groups: ['test', 'test1']
+      },
+      {
+        id: 1,
+        title: 'test',
+        due: 0,
+        description: 'test description',
+        groups: ['test', 'test1']
+      },
+      {
+        id: 2,
+        title: 'test',
+        due: 0,
+        description: 'test description',
+        groups: ['test', 'test1']
+      },
+      {
+        id: 3,
+        title: 'test',
+        due: 0,
+        description: 'test description',
+        groups: ['test', 'test1']
+      },
+      {
+        id: 4,
+        title: 'test',
+        due: 0,
+        description: 'test description',
+        groups: ['test', 'test1']
+      },
+    ]
+    //return this.data.tasks
   }
 
   get(index) {

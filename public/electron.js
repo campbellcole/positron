@@ -13,8 +13,7 @@ function createWindow() {
     frame: false,
     webPreferences: {
       nodeIntegration: true,
-    },
-    resizable: false
+    }
   })
   const mainURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
   mainWindow.loadURL(mainURL)
@@ -34,7 +33,7 @@ function createWindow() {
         mainWindow.minimize()
         break
       case 'openTools':
-        mainWindow.openDevTools({ mode: 'detach'})
+        mainWindow.openDevTools({ mode: 'undocked'})
         break;
       case 'getTasks':
         mainWindow.webContents.send('tasks', taskStore.getTasks())
@@ -42,6 +41,21 @@ function createWindow() {
       default: 
         break
     }
+  })
+  ipcMain.on('get', (event, request) => {
+    switch (request.name) {
+      case 'tasks':
+        request.response = taskStore.getTasks()
+        break
+      case 'groups':
+        const o = (l) => ({value:l,label:l})
+        request.response = [o('Test 1'), o('Test 2'), o('Test 3')]
+        break
+      default:
+        request.response = "pseudo-404 not found"
+        break
+    }
+    if (request.response) mainWindow.webContents.send('got', request)
   })
   ipcMain.on('addTask', (event, task) => {
     taskStore.add(task)
