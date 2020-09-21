@@ -16,6 +16,10 @@ const selectStyles = {
     fontFamily: ['Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'],
     fontSize: '12px',
   }),
+  valueContainer: (provided) => ({
+    ...provided,
+    padding: 0,
+  }),
 }
 
 const selectTheme = (theme) => ({
@@ -47,8 +51,10 @@ const animatedComponents = makeAnimated()
 export default class AddTaskView extends Component {
   constructor() {
     super()
-    this.state = { groups: [] }
+    this.state = { groups: [], selectedGroups: [] }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleGroupCreate = this.handleGroupCreate.bind(this)
+    this.handleValueChange = this.handleValueChange.bind(this)
   }
   render() {
     return (
@@ -72,9 +78,12 @@ export default class AddTaskView extends Component {
                   isClearable
                   components={animatedComponents}
                   createOptionPosition='first'
+                  onChange={this.handleValueChange}
+                  onCreateOption={this.handleGroupCreate}
                   options={this.state.groups}
                   styles={selectStyles}
                   theme={selectTheme}
+                  value={this.state.selectedGroups}
                 />
           </div>
           <div className='label-pair'>
@@ -89,11 +98,10 @@ export default class AddTaskView extends Component {
             </label>
             <textarea name='description' id='description' placeholder='Description' />
           </div>
-          <div className='label-pair'>
-            <label></label>
-            <button className='submit-btn' onClick={this.handleSubmit}>Submit</button>
-          </div>
         </form>
+        <div className='label-pair'>
+          <button className='submit-btn' onClick={this.handleSubmit}>Submit</button>
+        </div>
       </div>
     )
   }
@@ -101,9 +109,29 @@ export default class AddTaskView extends Component {
       ipc_get('groups').then((groups) => this.setState({groups: groups}))
   }
   handleSubmit() {
-    console.log('not yet implemented')
+    var task = {
+      title: document.getElementById('title').value,
+      groups: this.state.selectedGroups.map((group) => group.value),
+      due: document.getElementById('due-date').value,
+      description: document.getElementById('description').value,
+    }
+    console.log(task)
+    ipc_get('newTask', task).then((response) => console.log(response))
   }
-  handleGroupCreate() {
-
+  handleGroupCreate(newValue) {
+    var groups = this.state.selectedGroups
+    var newOption = {
+      label: newValue,
+      value: newValue.replace(/\W/g, '_')
+    }
+    groups.push(newOption)
+    this.setState({ selectedGroups: groups })
+  }
+  handleValueChange(newValue, actionMeta) {
+    console.group('Value Changed');
+    console.log(newValue);
+    console.log(`action: ${actionMeta.action}`);
+    console.groupEnd();
+    this.setState({ selectedGroups: newValue });
   }
 }

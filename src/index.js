@@ -9,7 +9,7 @@ import Banner from './components/Banner/Banner'
 import Footer from './components/Footer/Footer'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <Header />
     <Banner>
       Homework Manager
@@ -18,6 +18,6 @@ ReactDOM.render(
     <Footer>
       With &#128420; by Campbell Cole
     </Footer>
-  </React.StrictMode>,
+  </div>,
   document.getElementById('positron')
 )

@@ -15,7 +15,7 @@ function defer() {
 var handlers = {}
 var initialized = false
 
-function ipc_get(name) {
+function ipc_get(name, data = undefined) {
   if (!initialized) {
     ipcRenderer.on('got', (event, data) => {
       var handler = handlers[data.requestId];
@@ -28,7 +28,7 @@ function ipc_get(name) {
   var promise = defer()
   var requestId = uuid()
   handlers[requestId] = promise
-  ipcRenderer.send('get', {requestId: requestId, name: name})
+  ipcRenderer.send('get', {requestId: requestId, name: name, data: data})
   return promise
 }
 

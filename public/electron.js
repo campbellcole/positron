@@ -35,31 +35,30 @@ function createWindow() {
       case 'openTools':
         mainWindow.openDevTools({ mode: 'undocked'})
         break;
-      case 'getTasks':
-        mainWindow.webContents.send('tasks', taskStore.getTasks())
-        break
       default: 
         break
     }
   })
   ipcMain.on('get', (event, request) => {
     switch (request.name) {
-      case 'tasks':
-        request.response = taskStore.getTasks()
-        break
       case 'groups':
         const o = (l) => ({value:l,label:l})
         request.response = [o('Test 1'), o('Test 2'), o('Test 3')]
         break
+      case 'newTask':
+        if (request.data !== undefined) {
+          var task = request.data
+          taskStore.add(task)
+        }
+        // fall through
+      case 'tasks':
+        request.response = taskStore.getTasks()
+        break
       default:
-        request.response = "pseudo-404 not found"
+        request.response = 'bad request'
         break
     }
     if (request.response) mainWindow.webContents.send('got', request)
-  })
-  ipcMain.on('addTask', (event, task) => {
-    taskStore.add(task)
-    mainWindow.webContents.send('tasks', taskStore.getTasks())
   })
 }
 
