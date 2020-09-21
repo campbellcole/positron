@@ -65,13 +65,13 @@ export default class AddTaskView extends Component {
         <form className='task-form'>
           <div className='label-pair'>
                 <label htmlFor='title'>
-                  <span className='label-text'>Task Title</span>
+                  <span className='label-text'>Title</span>
                 </label>
                 <input id='title' name='title' type='text' placeholder='Title' />
           </div>
           <div className='label-pair'>
                 <label htmlFor='type'>
-                  <span className='label-text'>Task Group</span>
+                  <span className='label-text'>Group</span>
                 </label>
                 <Creatable
                   isMulti

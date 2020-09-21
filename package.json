@@ -7,6 +7,7 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
+    "node-fetch": "^2.6.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-custom-scroll": "^4.2.1",
@@ -26,7 +27,7 @@
     "wait-on": "^5.2.0"
   },
   "scripts": {
-    "start": "rmdir /Q /S %APPDATA%\\positron && concurrently \"npm run serve\" \"wait-on http://localhost:3000 && electron .\"",
+    "start": "rmdir /Q /S %APPDATA%\\positron && set BROWSER=none && concurrently \"npm run serve\" \"wait-on http://localhost:3000 && electron .\"",
     "serve": "react-scripts start",
     "build": "react-scripts build",
     "preelectron-pack": "npm run build",
