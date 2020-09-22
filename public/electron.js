@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
 const TaskStore = require('./TaskStore')
+const { getCanvasTasks } = require('./canvas')
 
 var mainWindow, taskStore
 
@@ -53,6 +54,12 @@ function createWindow() {
         // fall through
       case 'tasks':
         request.response = taskStore.getTasks()
+        break
+      case 'canv':
+        getCanvasTasks('4cd.instructure.com').then((courses) => {
+          request.response = courses
+          mainWindow.webContents.send('got', request)
+        })
         break
       default:
         request.response = 'bad request'

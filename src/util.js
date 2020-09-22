@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid'
-const { ipcRenderer } = window.require('electron')
+const fetch = window.fetch
+const electron = window.require('electron')
 
 function defer() {
   var res, rej;
@@ -17,7 +18,7 @@ var initialized = false
 
 function ipc_get(name, data = undefined) {
   if (!initialized) {
-    ipcRenderer.on('got', (event, data) => {
+    electron.ipcRenderer.on('got', (event, data) => {
       var handler = handlers[data.requestId];
       if (handler !== undefined) {
         handler.resolve(data.response)
@@ -28,7 +29,7 @@ function ipc_get(name, data = undefined) {
   var promise = defer()
   var requestId = uuid()
   handlers[requestId] = promise
-  ipcRenderer.send('get', {requestId: requestId, name: name, data: data})
+  electron.ipcRenderer.send('get', {requestId: requestId, name: name, data: data})
   return promise
 }
 

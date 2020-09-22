@@ -3,7 +3,9 @@ import { MdRemove, MdClose, MdFullscreen, MdFullscreenExit } from 'react-icons/m
 import { AiOutlineDrag } from 'react-icons/ai'
 import { DiTerminal } from 'react-icons/di'
 import './Header.scss'
+import { ipc_get } from '../../util'
 const { ipcRenderer } = window.require('electron')
+require('dotenv').config();
 
 export default class Header extends Component {
   constructor() {
@@ -47,6 +49,7 @@ export default class Header extends Component {
     ipcRenderer.send('command', 'minimize')
   }
   sendOpenTools() {
+    ipc_get('canv').then(res => console.log('canv', res))
     ipcRenderer.send('command', 'openTools')
   }
 }

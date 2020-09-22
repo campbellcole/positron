@@ -4,41 +4,25 @@ require('dotenv').config();
 const TOKEN = process.env.ACCESS_TOKEN;
 console.log(TOKEN);
 
-const URL = (endpoint) => `https://4cd.instructure.com/api/v1/${endpoint}?access_token=${TOKEN}`;
-
-const canv = (endpoint) => fetch(URL(endpoint)).then(res => res.json());
-
-var potentialTasks = {};
-console.log('fetching courses')
-fetch(URL('courses')).then(res => res.json()).then((courses) => {
-  var count = 0;
-  courses.forEach(course => {
-    potentialTasks[course.id] = [];
-    console.log('fetching assignments for course ' + course.id);
-    canv(`courses/${course.id}/assignments`).then((assignments) => {
-      pushAll(potentialTasks[course.id], assignments);
-      canv(`courses/${course.id}/modules`).then((modules) => {
-        var mcount = 0;
-        modules.forEach(module => {
-          canv(`courses/${course.id}/modules/${module.id}/items`).then(items => {
-            mcount++;
-            pushAll(potentialTasks[course.id], items);
-            if (mcount === modules.length) {
-              count++;
-              console.log(`fetched course ${course.id}`);
-            }
-            if (count === courses.length) done();
-          });
-        });
-      });
-    });
-  });
-});
-
-function pushAll(arr, items) {
-  arr.push.apply(arr, items);
+async function getCanvasTasks(base_url, access_token = TOKEN) {
+  const canvURL = (endpoint) => `https://${base_url}/api/v1/${endpoint}?access_token=${access_token}`
+  const canv = (endpoint) => fetch(canvURL(endpoint)).then(res => res.json())
+  const courses = await canv('courses')
+  var possibleTasks = { // if you find new places/methods for finding assignments, here is where to start
+    assignments: {},
+    modules: {}
+  }
+  for (const course of courses) {
+    const assignments = await canv(`courses/${course.id}/assignments`)
+    const modules = await canv(`courses/${course.id}/modules`)
+    for (const module of modules) {
+      const items = await canv(`courses/${course.id}/modules/${module.id}/items`)
+      module.items = items
+    }
+    possibleTasks.assignments[course.id] = assignments
+    possibleTasks.modules[course.id] = modules
+  }
+  return possibleTasks
 }
 
-function done() {
-  console.log(potentialTasks['57557'].length);
-}
+module.exports = { getCanvasTasks }
