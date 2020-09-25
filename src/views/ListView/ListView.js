@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ipc_get } from '../../util'
+import { ipc_get, formatDateTime } from '../../util'
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'shards-react'
 import { Link } from 'react-router-dom'
 import './ListView.scss'
@@ -18,10 +18,11 @@ export default class ListView extends Component {
             <Link to='/add' component={AddLink} />
           </ListGroupItem>
           { this.state.tasks.map((value, index) => {
+            console.log(value.due)
             return (
               <ListGroupItem key={index} action>
                 <ListGroupItemHeading>{value.title}</ListGroupItemHeading>
-                <ListGroupItemText>{new Date(value.due).toString()}</ListGroupItemText>
+                <ListGroupItemText>{formatDateTime(new Date(value.dueDate))}</ListGroupItemText>
               </ListGroupItem>
             )
           })}
@@ -30,6 +31,6 @@ export default class ListView extends Component {
     )
   }
   componentDidMount() {
-    ipc_get('tasks').then((tasks) => this.setState({ tasks: tasks }))
+    ipc_get('canv').then((tasks) => this.setState({ tasks: tasks }))
   }
 }

@@ -33,4 +33,8 @@ function ipc_get(name, data = undefined) {
   return promise
 }
 
-export { ipc_get }
+function formatDateTime(date) {
+  return `${(date.getHours()+1)%12}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()} ${date.getHours()%12===1?'AM':'PM'} ${date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`
+}
+
+export { ipc_get, formatDateTime }

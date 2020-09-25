@@ -18,7 +18,7 @@ function createWindow() {
   })
   const mainURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
   mainWindow.loadURL(mainURL)
-  mainWindow.once('ready-to-show', () => mainWindow.show())
+  mainWindow.show()
   mainWindow.on('closed', () => mainWindow = null)
   taskStore = new TaskStore()
   ipcMain.on('command', (event, command) => {

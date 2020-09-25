@@ -28,7 +28,7 @@
     "wait-on": "^5.2.0"
   },
   "scripts": {
-    "start": "rmdir /Q /S %APPDATA%\\positron && set BROWSER=none && concurrently \"npm run serve\" \"wait-on http://localhost:3000 && electron .\"",
+    "start": "concurrently \"npm run serve\" \"wait-on http://localhost:3000 && electron .\"",
     "serve": "react-scripts start",
     "build": "react-scripts build",
     "preelectron-pack": "npm run build",
