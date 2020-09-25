@@ -45,11 +45,16 @@ ul {
 
 .list-group-item-heading {
   color: $text-color-light;
+  margin: 0;
 }
 
 .list-group-item {
   color: $text-color;
   background-color: rgb(63, 63, 63);
+}
+
+.list-group-item-text {
+  margin: 0;
 }
 
 .list-group-item-action:hover {

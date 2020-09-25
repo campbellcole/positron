@@ -49,7 +49,6 @@ export default class Header extends Component {
     ipcRenderer.send('command', 'minimize')
   }
   sendOpenTools() {
-    ipc_get('canv').then(res => console.log('canv', res))
     ipcRenderer.send('command', 'openTools')
   }
 }
