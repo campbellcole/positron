@@ -1,0 +1,33 @@
+@import '../shared';
+
+.scroll {
+  overflow-y: scroll;
+  scroll-margin-block: 100px;
+  max-height: calc(100vh - 160px);
+}
+
+.scroll::-webkit-scrollbar-track {
+  border: 1px solid black;
+  background-color: #F5F5F5;
+}
+
+.scroll::-webkit-scrollbar-button:end:increment {
+  height: 4%;
+  display: block;
+  background: transparent;
+}
+
+.scroll::-webkit-scrollbar-button:start:increment {
+  height: 4%;
+  display: block;
+  background: transparent;
+}
+
+.scroll::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F500;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #000000;
+}

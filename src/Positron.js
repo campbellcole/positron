@@ -5,7 +5,8 @@ import CalendarView from './views/CalendarView/CalendarView'
 import ListView from './views/ListView/ListView'
 import AddTaskView from './views/AddTaskView/AddTaskView'
 import './Positron.scss'
-import { GroupLink, CalendarLink, ListLink } from './Links'
+import './scss/scrollbar.scss'
+import LinkReference from './Links'
 import { ipc_get } from './util'
 
 export default class Positron extends Component {
@@ -19,9 +20,9 @@ export default class Positron extends Component {
         <HashRouter hashType='noslash'>
           <div className='view_selector'>
             <ButtonGroup size='sm'>
-              <Link to='/group' component={GroupLink} />
-              <Link to='/calendar' component={CalendarLink} />
-              <Link to='/list' component={ListLink} />
+              <Link to='/group' component={LinkReference('Group View')} />
+              <Link to='/calendar' component={LinkReference('Calendar View')} />
+              <Link to='/list' component={LinkReference('List View')} />
             </ButtonGroup>
           </div>
           <Route path='/list' render={()=>(<ListView tasks={this.state.tasks}/>)} />

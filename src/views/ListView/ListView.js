@@ -3,16 +3,17 @@ import { ipc_get } from '../../util'
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'shards-react'
 import { Link } from 'react-router-dom'
 import './ListView.scss'
-import { AddLink } from '../../Links'
+import '../../scss/scrollbar.scss'
+import LinkReference from '../../Links'
 import moment from 'moment'
 
 export default class ListView extends Component {
   render() {
     return (
-      <div className='list-view'>
+      <div className='scroll'>
         <ListGroup>
           <ListGroupItem key={-1} action className='item-add-btn'>
-            <Link to='/add' component={AddLink} />
+            <Link to='/add' component={LinkReference('Add Task', 'add-btn-list')} />
           </ListGroupItem>
           { this.props.tasks.map((value, index) => {
             return (

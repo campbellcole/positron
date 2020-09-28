@@ -1,28 +1,48 @@
-@import 'react-big-calendar/lib/sass/styles';
+@import '../../shared';
 
-/*
-$out-of-range-color: lighten(#333, 40%);
-$out-of-range-bg-color: lighten(#333, 70%);
-$calendar-border: #DDD;
-$cell-border: #DDD;
-$border-color: #CCC;
+.calendar-container {
+    font-family: $font-family;
+}
+
+$out-of-range-color: $card-color-light;
+$out-of-range-bg-color: lighten($card-color-light, 1%);
+$calendar-border: $border-color;
+$cell-border: lighten($border-color, 10%);
+$border-color: $border-color;
 $segment-width: percentage(1 / 7);
-$time-selection-color: white;
+$time-selection-color: $card-color-dark;
 $time-selection-bg-color: rgba(0,0,0, .50);
 $date-selection-bg-color: rgba(0,0,0, .10);
-$event-bg: #3174ad;
-$event-border: darken(#3174ad, 10%);
+$event-bg: #72498a;
+$event-border: transparent;
 $event-outline: #3b99fc;
-$event-color: #fff;
+$event-color: $card-color-light;
 $event-border-radius: 5px;
 $event-padding: 2px 5px;
 $event-zindex: 4;
-$btn-color: #373a3c;
-$btn-bg: #fff;
-$btn-border: #ccc;
+$btn-color: $text-color-light;
+$btn-bg: $card-color-light;
+$btn-border: $border-color;
 $current-time-color: #74ad31;
 $rbc-css-prefix: rbc-i;
-$today-highlight-bg: #eaf6ff;
-*/
+$today-highlight-bg: #381a5a;
 
 @import 'react-big-calendar/lib/sass/variables';
+@import 'react-big-calendar/lib/sass/styles';
+
+.rbc-month-row {
+    overflow: inherit;
+}
+
+.rbc-event-content {
+    color: lighten($text-color, 15%);
+    font-size: 15px;
+}
+
+.rbc-event:active, .rbc-event:focus {
+    outline: none !important;
+}
+
+.rbc-date-cell {
+    color: $text-color-light;
+}

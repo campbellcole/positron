@@ -23,8 +23,19 @@ class TaskStore {
   }
 
   add(task) {
+    this._add(task)
+    this.save()
+  }
+
+  _add(task) {
     task.id = this.getNextIndex()
     this.data.tasks.push(task)
+  }
+
+  addAll(tasks) {
+    for (const task of tasks) {
+      this._add(task)
+    }
     this.save()
   }
 
