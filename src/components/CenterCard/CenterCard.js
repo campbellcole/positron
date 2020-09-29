@@ -17,3 +17,13 @@ export default class CenterCard extends Component {
     )
   }
 }
+
+class CenterCardButton extends Component {
+  render() {
+    return (
+      <button className='center-card-button' onClick={this.props.onClick}>{this.props.children}</button>
+    )
+  }
+}
+
+export { CenterCardButton }

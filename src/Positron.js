@@ -28,7 +28,7 @@ export default class Positron extends Component {
           <Route path='/list' render={()=>(<ListView tasks={this.state.tasks}/>)} />
           <Route path='/add' component={AddTaskView} />
           <Route path='/calendar' render={()=>(<CalendarView tasks={this.state.tasks}/>)} />
-          <Route path='/import' component={CanvasImportView} />
+          <Route path='/import' render={()=>(<CanvasImportView onImported={(tasks) => this.setState({tasks: tasks})}/>)} />
       </div>
     )
   }

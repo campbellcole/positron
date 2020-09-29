@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import CenterCard from '../../components/CenterCard/CenterCard'
+import CenterCard, { CenterCardButton } from '../../components/CenterCard/CenterCard'
 import LabelledInput from '../../components/LabelledInput/LabelledInput'
+import { ipc_get } from '../../util'
 
 export default class CanvasImportView extends Component {
   constructor() {
     super()
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleImport = this.handleImport.bind(this)
+    this.state = { importCompleted: false }
   }
   render() {
     return (
@@ -13,12 +15,12 @@ export default class CanvasImportView extends Component {
         <LabelledInput id='token' title='Access Token' type='text' />
         <LabelledInput id='url' title='Canvas URL' type='text' />
         <LabelledInput render={() => (
-          <button className='submit-btn' onClick={this.handleSubmit}>Import</button>
+          <CenterCardButton onClick={this.handleImport}>Import</CenterCardButton>
         )}/>
       </CenterCard>
     )
   }
-  handleSubmit() {
-    console.log('todo')
+  handleImport() {
+    ipc_get('canvas', {url:document.getElementById('url').value,token:document.getElementById('token').value}).then(tasks => this.props.onImported(tasks))
   }
 }

@@ -13,4 +13,17 @@
   .center-card-content {
     margin: 10px 30px;
   }
+  .center-card-button {
+    padding: 2px 0;
+    background-color: $card-color-dark;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 4px 50px 0;
+  }
+  .center-card-button:hover {
+    background-color: $card-color-darker;
+  }
+  .center-card-button:active {
+    background-color: $card-color-darkest;
+  }
 }

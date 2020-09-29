@@ -3,7 +3,7 @@ import './AddTaskView.scss'
 import sassColors from '../../_shared.scss'
 import Creatable from 'react-select/creatable'
 import makeAnimated from 'react-select/animated'
-import CenterCard from '../../components/CenterCard/CenterCard'
+import CenterCard, { CenterCardButton } from '../../components/CenterCard/CenterCard'
 import LabelledInput from '../../components/LabelledInput/LabelledInput'
 import { ipc_get } from '../../util'
 
@@ -81,7 +81,7 @@ export default class AddTaskView extends Component {
           <textarea name='description' id='description' placeholder='Description' />
         )}/>
         <LabelledInput render={() => (
-          <button className='submit-btn' onClick={this.handleSubmit}>Submit</button>
+          <CenterCardButton onClick={this.handleSubmit}>Submit</CenterCardButton>
         )}/>
       </CenterCard>
     )

@@ -55,9 +55,14 @@ function createWindow() {
       case 'tasks':
         request.response = taskStore.getTasks()
         break
-      case 'canv':
-        getCanvasTasks('4cd.instructure.com').then((courses) => {
-          request.response = courses
+      case 'canvas':
+        var canvasInfo = request.data
+        getCanvasTasks(canvasInfo.url, canvasInfo.token).then((tasks) => {
+          taskStore.addAll(tasks)
+          request.response = taskStore.getTasks()
+          mainWindow.webContents.send('got', request)
+        }).catch(err => {
+          request.response = `error: ${err}`
           mainWindow.webContents.send('got', request)
         })
         break

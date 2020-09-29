@@ -9,6 +9,7 @@ var taskCache = []
 
 async function getCanvasTasks(base_url, access_token = TOKEN, ignoreCache = false) {
   if (!ignoreCache && taskCache.length > 0) return taskCache
+  if (access_token === undefined) return []
   console.log('getting canvas tasks')
   const canvURL = (endpoint) => `https://${base_url}/api/v1/${endpoint}?per_page=999`
   const canv = (endpoint) => fetch(canvURL(endpoint), {headers: {'Authorization':'Bearer '+access_token}}).then(res => res.json())
