@@ -18,24 +18,20 @@ async function getCanvasTasks(base_url, access_token = TOKEN, ignoreCache = fals
   for (const course of courses) {
     const assignments = await canv(`courses/${course.id}/assignments`)
     for (const assignment of assignments) {
-      possibleTasks.push(convertToTask(assignment))
+      possibleTasks.push(Task(
+        -1,
+        assignment.name || `${course.course_code} assignment`,
+        (assignment.due_at && Date.parse(assignment.due_at)) || 0,
+        assignment.description || `imported from class: ${course.name}`,
+        assignment.url || assignment.html_url || undefined,
+        [`${course.course_code}`],
+        false
+      ))
     }
   }
   console.log('complete')
   taskCache = possibleTasks
   return possibleTasks
-}
-
-function convertToTask(canvasObject) {
-  return Task(
-    -1,
-    canvasObject.name || 'NO NAME',
-    (canvasObject.due_at && Date.parse(canvasObject.due_at)) || 0,
-    canvasObject.description || 'NO DESCRIPTION', 
-    canvasObject.url || canvasObject.html_url || undefined, 
-    [], 
-    false
-  )
 }
 
 module.exports = { getCanvasTasks }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './AddTaskView.scss'
 import sassColors from '../../_shared.scss'
 import Creatable from 'react-select/creatable'
 import makeAnimated from 'react-select/animated'
