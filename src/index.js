@@ -7,9 +7,10 @@ import Positron from './Positron'
 import Header from './components/Header/Header'
 import Banner from './components/Banner/Banner'
 import Footer from './components/Footer/Footer'
+import { HashRouter } from 'react-router-dom'
 
 ReactDOM.render(
-  <div>
+  <HashRouter type='noslash'>
     <Header />
     <Banner>
       Homework Manager
@@ -18,6 +19,6 @@ ReactDOM.render(
     <Footer>
       With &#128420; by Campbell Cole
     </Footer>
-  </div>,
+  </HashRouter>,
   document.getElementById('positron')
 )

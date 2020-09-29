@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { ButtonGroup } from 'shards-react'
-import { HashRouter, Link, Route } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import CalendarView from './views/CalendarView/CalendarView'
 import ListView from './views/ListView/ListView'
 import AddTaskView from './views/AddTaskView/AddTaskView'
+import CanvasImportView from './views/CanvasImportView/CanvasImportView'
 import './Positron.scss'
 import './scss/scrollbar.scss'
 import LinkReference from './Links'
@@ -17,7 +18,6 @@ export default class Positron extends Component {
   render() {
     return (
       <div className='app'>
-        <HashRouter hashType='noslash'>
           <div className='view_selector'>
             <ButtonGroup size='sm'>
               <Link to='/group' component={LinkReference('Group View')} />
@@ -28,14 +28,11 @@ export default class Positron extends Component {
           <Route path='/list' render={()=>(<ListView tasks={this.state.tasks}/>)} />
           <Route path='/add' component={AddTaskView} />
           <Route path='/calendar' render={()=>(<CalendarView tasks={this.state.tasks}/>)} />
-        </HashRouter>
+          <Route path='/import' component={CanvasImportView} />
       </div>
     )
   }
   componentDidMount() {
-    ipc_get('canv').then((tasks) => {
-      console.log('tasks', tasks)
-      this.setState({tasks: tasks})
-    })
+    ipc_get('tasks').then((tasks) => this.setState({tasks: tasks}))
   }
 }

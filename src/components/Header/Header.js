@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { MdRemove, MdClose, MdFullscreen, MdFullscreenExit } from 'react-icons/md'
+import { MdRemove, MdClose, MdFullscreen, MdFullscreenExit, MdFileDownload } from 'react-icons/md'
 import { AiOutlineDrag } from 'react-icons/ai'
 import { DiTerminal } from 'react-icons/di'
+import { Link } from 'react-router-dom'
 import './Header.scss'
-import { ipc_get } from '../../util'
+import LinkReference from '../../Links'
 const { ipcRenderer } = window.require('electron')
 require('dotenv').config();
 
@@ -34,6 +35,7 @@ export default class Header extends Component {
           </span>
           <span id='control_minimize' className='control' onClick={this.sendMinimize}><MdRemove /></span>
           <span id='control_devtools' className='control' onClick={this.sendOpenTools}><DiTerminal /></span>
+          <Link to='/import' component={LinkReference(<MdFileDownload />, 'control')}/>
         </div>
       </div>
     )

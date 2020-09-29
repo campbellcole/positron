@@ -24,6 +24,7 @@ function ipc_get(name, data = undefined) {
         handlers[requestId] = null
       } else console.log('disposing of received data because no handler was set up')
     })
+    initialized = true
   }
   var promise = defer()
   var requestId = uuid()

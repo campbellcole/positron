@@ -3,6 +3,8 @@ import './AddTaskView.scss'
 import sassColors from '../../_shared.scss'
 import Creatable from 'react-select/creatable'
 import makeAnimated from 'react-select/animated'
+import CenterCard from '../../components/CenterCard/CenterCard'
+import LabelledInput from '../../components/LabelledInput/LabelledInput'
 import { ipc_get } from '../../util'
 
 const selectStyles = {
@@ -58,51 +60,30 @@ export default class AddTaskView extends Component {
   }
   render() {
     return (
-      <div className='add-task'>
-        <center>
-          <h2>Add Task</h2>
-        </center>
-        <form className='task-form'>
-          <div className='label-pair'>
-                <label htmlFor='title'>
-                  <span className='label-text'>Title</span>
-                </label>
-                <input id='title' name='title' type='text' placeholder='Title' />
-          </div>
-          <div className='label-pair'>
-                <label htmlFor='type'>
-                  <span className='label-text'>Group</span>
-                </label>
-                <Creatable
-                  isMulti
-                  isClearable
-                  components={animatedComponents}
-                  createOptionPosition='first'
-                  onChange={this.handleValueChange}
-                  onCreateOption={this.handleGroupCreate}
-                  options={this.state.groups}
-                  styles={selectStyles}
-                  theme={selectTheme}
-                  value={this.state.selectedGroups}
-                />
-          </div>
-          <div className='label-pair'>
-            <label htmlFor='due-date'>
-              Due Date
-            </label>
-            <input type='datetime-local' name='due-date' id='due-date' />
-          </div>
-          <div className='label-pair'>
-            <label htmlFor='description'>
-              <span className='label-text'>Description</span>
-            </label>
-            <textarea name='description' id='description' placeholder='Description' />
-          </div>
-        </form>
-        <div className='label-pair'>
+      <CenterCard title='Add Task'>
+        <LabelledInput id='title' title='Title' type='text' />
+        <LabelledInput id='group' title='Group' render={() => (
+          <Creatable
+            isMulti
+            isClearable
+            components={animatedComponents}
+            createOptionPosition='first'
+            onChange={this.handleValueChange}
+            onCreateOption={this.handleGroupCreate}
+            options={this.state.groups}
+            styles={selectStyles}
+            theme={selectTheme}
+            value={this.state.selectedGroups}
+          />
+        )}/>
+        <LabelledInput id='due-date' title='Due Date' type='datetime-local' />
+        <LabelledInput id='description' title='Description' render={() => (
+          <textarea name='description' id='description' placeholder='Description' />
+        )}/>
+        <LabelledInput render={() => (
           <button className='submit-btn' onClick={this.handleSubmit}>Submit</button>
-        </div>
-      </div>
+        )}/>
+      </CenterCard>
     )
   }
   componentDidMount() {
@@ -110,10 +91,13 @@ export default class AddTaskView extends Component {
   }
   handleSubmit() {
     var task = {
+      id: -1,
       title: document.getElementById('title').value,
-      groups: this.state.selectedGroups.map((group) => group.value),
-      due: document.getElementById('due-date').value,
+      dueDate: document.getElementById('due-date').value,
       description: document.getElementById('description').value,
+      url: '',
+      groups: this.state.selectedGroups.map((group) => group.value),
+      completed: false
     }
     console.log(task)
     ipc_get('newTask', task).then((response) => console.log(response))

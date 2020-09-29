@@ -1,0 +1,16 @@
+@import '../../shared';
+
+.center-card {
+  background-color: $card-color-light;
+  width: 65vw;
+  margin: 0 auto;
+  border-radius: 6px;
+  padding: 5px;
+  .center-card-title {
+    margin-top: 5px;
+    color: $text-color-light;
+  }
+  .center-card-content {
+    margin: 10px 30px;
+  }
+}
