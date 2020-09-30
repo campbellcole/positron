@@ -3,7 +3,7 @@ function Task(
   title,
   dueDate,
   description,
-  link,
+  url,
   groups,
   completed
 ) {
@@ -12,7 +12,7 @@ function Task(
     title: title,
     dueDate: dueDate,
     description: description,
-    link: link,
+    url: url,
     groups: groups,
     completed: completed
   }

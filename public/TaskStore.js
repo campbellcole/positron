@@ -9,6 +9,16 @@ class TaskStore {
     this.data = parseDataFile(this.path)
   }
   
+  getAllUsedGroups() {
+    let groups = []
+    for (const task of this.data.tasks) {
+      for (const group of task.groups) {
+        if (groups.indexOf(group) === -1) groups.push(group)
+      }
+    }
+    return groups
+  }
+
   getTasks() {
     return this.data.tasks
   }

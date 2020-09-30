@@ -22,7 +22,7 @@ async function getCanvasTasks(base_url, access_token = TOKEN, ignoreCache = fals
         -1,
         assignment.name || `${course.course_code} assignment`,
         (assignment.due_at && Date.parse(assignment.due_at)) || 0,
-        assignment.description || `imported from class: ${course.name}`,
+        assignment.description || `Imported from class: ${course.name} (${course.course_code})`,
         assignment.url || assignment.html_url || undefined,
         [`${course.course_code}`],
         false

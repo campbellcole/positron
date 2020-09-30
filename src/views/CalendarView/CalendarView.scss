@@ -13,7 +13,7 @@ $segment-width: percentage(1 / 7);
 $time-selection-color: $card-color-dark;
 $time-selection-bg-color: rgba(0,0,0, .50);
 $date-selection-bg-color: rgba(0,0,0, .10);
-$event-bg: #72498a;
+$event-bg: rgb(85, 53, 126);
 $event-border: transparent;
 $event-outline: #3b99fc;
 $event-color: $card-color-light;
@@ -25,24 +25,28 @@ $btn-bg: $card-color-light;
 $btn-border: $border-color;
 $current-time-color: #74ad31;
 $rbc-css-prefix: rbc-i;
-$today-highlight-bg: #381a5a;
+$today-highlight-bg: rgb(48, 63, 60);
 
 @import 'react-big-calendar/lib/sass/variables';
 @import 'react-big-calendar/lib/sass/styles';
 
 .rbc-month-row {
-    overflow: inherit;
+  overflow: inherit;
 }
 
 .rbc-event-content {
-    color: lighten($text-color, 15%);
-    font-size: 15px;
+  color: lighten($text-color, 15%);
+  font-size: 15px;
 }
 
 .rbc-event:active, .rbc-event:focus {
-    outline: none !important;
+  outline: none !important;
 }
 
 .rbc-date-cell {
-    color: $text-color-light;
+  color: $text-color-light;
+}
+
+.rbc-show-more {
+  color: $text-color-light;
 }

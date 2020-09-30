@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
 const TaskStore = require('./TaskStore')
@@ -19,6 +19,12 @@ function createWindow() {
   const mainURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
   mainWindow.loadURL(mainURL)
   mainWindow.show()
+  mainWindow.webContents.on('new-window', (e, url) => {
+    if (url != mainWindow.webContents.getURL()) {
+      e.preventDefault()
+      shell.openExternal(url)
+    }
+  })
   mainWindow.on('closed', () => mainWindow = null)
   taskStore = new TaskStore()
   ipcMain.on('command', (event, command) => {
@@ -43,8 +49,8 @@ function createWindow() {
   ipcMain.on('get', (event, request) => {
     switch (request.name) {
       case 'groups':
-        const o = (l) => ({value:l,label:l})
-        request.response = [o('Test 1'), o('Test 2'), o('Test 3')]
+        var groups = taskStore.getAllUsedGroups()
+        request.response = groups
         break
       case 'newTask':
         if (request.data !== undefined) {

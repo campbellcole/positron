@@ -86,7 +86,13 @@ export default class AddTaskView extends Component {
     )
   }
   componentDidMount() {
-      ipc_get('groups').then((groups) => this.setState({groups: groups}))
+    ipc_get('groups').then(groups => {
+      let formattedGroups = []
+      for (const group of groups) {
+        formattedGroups.push({label: group, value: group})
+      }
+      this.setState({groups: formattedGroups})
+    })
   }
   handleSubmit() {
     var task = {
