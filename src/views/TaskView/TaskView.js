@@ -26,9 +26,7 @@ export default class TaskView extends Component {
         <CenterCard title={this.state.task.title}>
           <center>
             <h6 className='task-due'>
-              {
-                `Due ${date.format('MMMM Do YYYY, h:mm A')}, ${date.fromNow()}`
-              }
+              { `Due ${date.format('MMMM Do YYYY, h:mm A')}, ${date.fromNow()}` }
             </h6>
             <hr/>
             <iframe
@@ -43,7 +41,7 @@ export default class TaskView extends Component {
                   }
                 }
                 // auto expand iframe so no scrollbar appears
-                frame.height = frame.contentWindow.document.body.scrollHeight+"px"
+                frame.height = frame.contentWindow.document.body.scrollHeight + "px"
               }}
             />
           </center>
