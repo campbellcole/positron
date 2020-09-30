@@ -9,9 +9,48 @@
   color: $text-color-light;
 }
 
+.task-controls {
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  font-family: $font-family;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.task-control:not(:first-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.task-control:not(:last-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.task-control {
+  margin: 0;
+  background-color: rgba(148, 148, 148, 0.233);
+  transition: all 0.12s;
+  padding: 0px 7px 3px 7px;
+  color: $text-color-light;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.task-control:hover {
+  background-color: rgba(95, 95, 95, 0.137);
+}
+
 #description-frame {
   width: 100%;
   border-radius: 10px;
+}
+
+.frame-container {
+  background-color: $foreground-color;
+  border-radius: 3px;
+  padding: 18px 5px 0px;
 }
 
 hr {

@@ -1,6 +1,8 @@
 @import '../../shared';
 
 .center-card {
+  position: absolute;
+  left: calc(50vw - 32.5vw);
   background-color: $card-color-light;
   width: 65vw;
   margin: 0 auto;

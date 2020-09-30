@@ -18,41 +18,76 @@ export default class TaskView extends Component {
       groups: ['test_group'],
       completed: false
     }}
+    this.openTaskURL = this.openTaskURL.bind(this)
   }
   render() {
     let date = moment(this.state.task.dueDate)
     return (
       <div className='scroll'>
         <CenterCard title={this.state.task.title}>
+          <div className='task-controls'>
+            { this.state.task.url !== '' &&
+              <span className='task-control' onClick={this.openTaskURL}>Open URL</span>
+            }
+          </div>
           <center>
             <h6 className='task-due'>
               { `Due ${date.format('MMMM Do YYYY, h:mm A')}, ${date.fromNow()}` }
             </h6>
-            <hr/>
-            <iframe
-              id='description-frame'
-              frameBorder='false'
-              onLoad={({target: frame})=>{
-                // clean up canvas imports
-                var elems = frame.contentWindow.document.querySelectorAll('p')
-                for (const p of elems) {
-                  if (p.innerText.trim() == '' || p.innerHTML.trim() == '' || p.innerHTML === '&nbsp;') {
-                    p.parentElement.removeChild(p)
+            <hr />
+            <div className='frame-container'>
+              <iframe
+                id='description-frame'
+                frameBorder='false'
+                onLoad={({target: frame})=>{
+                  // clean up canvas imports
+                  var elems = frame.contentWindow.document.querySelectorAll('p')
+                  for (const p of elems) {
+                    if ((p.innerText.trim() == '' && p.innerHTML.trim() == '') || p.innerHTML === '&nbsp;') {
+                      p.parentElement.removeChild(p)
+                    }
                   }
-                }
-                // auto expand iframe so no scrollbar appears
-                frame.height = frame.contentWindow.document.body.scrollHeight + "px"
-              }}
-            />
+                  // auto expand iframe so no scrollbar appears
+                  frame.height = frame.contentWindow.document.body.scrollHeight + "px"
+                }}
+              />
+            </div>
           </center>
         </CenterCard>
       </div>
     )
   }
+  openTaskURL() {
+    window.open(this.state.task.url)
+  }
   componentDidMount() {
     var frame = document.getElementById('description-frame')
     frame.contentWindow.document.open()
-    const html = `<html><head><base target="_blank"><style>*{color:${sassColors.textColorLight}}</style></head><body style="background-color: ${sassColors.foregroundColor};"><center>${this.state.task.description}</center></body></html>`
+    const html = 
+    `
+      <html>
+        <head>
+          <base target="_blank">
+          <style>
+            html, body {
+              margin: 0;
+              padding: 0;
+              height: 100%;
+            }
+            * {
+              color: ${sassColors.textColorLight}
+            }
+          </style>
+        </head>
+        <body>
+          <center>
+            <div id="description">
+              ${this.state.task.description}
+            </div>
+          </center>
+        </body>
+      </html>
+    `
     frame.contentWindow.document.write(html)
     frame.contentWindow.document.close()
   }

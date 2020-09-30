@@ -37,13 +37,6 @@
   cursor: default;
 }
 
-.drag {
-  padding: 7px 44px 2px 44px;
-  backdrop-filter: none;
-  background-color: rgb(73, 73, 73);
-  -webkit-app-region: drag;
-}
-
 .control:hover {
   color: rgb(129, 129, 129);
   background-color: rgba(36, 36, 36, 0.082);
@@ -51,4 +44,11 @@
 
 #control_close:hover {
   background-color: rgba(240, 0, 0, 0.329);
+}
+
+.drag {
+  padding: 7px 44px 2px 44px;
+  backdrop-filter: none;
+  background-color: rgb(73, 73, 73);
+  -webkit-app-region: drag;
 }
