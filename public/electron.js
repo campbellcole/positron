@@ -1,10 +1,10 @@
 const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
-const TaskStore = require('./TaskStore')
+const PositronStore = require('./PositronStore')
 const { getCanvasTasks } = require('./canvas')
 
-var mainWindow, taskStore
+var mainWindow, store
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -26,7 +26,7 @@ function createWindow() {
     }
   })
   mainWindow.on('closed', () => mainWindow = null)
-  taskStore = new TaskStore()
+  store = new PositronStore()
   ipcMain.on('command', (event, command) => {
     switch (command) {
       case 'close':
@@ -46,29 +46,29 @@ function createWindow() {
         break
     }
   })
-  ipcMain.on('get', (event, request) => {
+  ipcMain.on('get', (_, request) => {
     switch (request.name) {
       case 'groups':
-        var groups = taskStore.getAllUsedGroups()
+        var groups = store.getGroups()
         request.response = groups
         break
       case 'newTask':
         if (request.data !== undefined) {
           var task = request.data
-          taskStore.add(task)
+          store.addTask(task)
         }
         // fall through
       case 'tasks':
-        request.response = taskStore.getTasks()
+        request.response = store.getTasks()
         break
       case 'canvas':
         var canvasInfo = request.data
-        getCanvasTasks(canvasInfo.url, canvasInfo.token).then((tasks) => {
-          taskStore.addAll(tasks)
-          request.response = taskStore.getTasks()
+        store.refreshCanvasImports(canvasInfo.url, canvasInfo.token).then(tasks => {
+          request.response = tasks
           mainWindow.webContents.send('got', request)
         }).catch(err => {
-          request.response = `error: ${err}`
+          console.error(err)
+          request.response = []
           mainWindow.webContents.send('got', request)
         })
         break

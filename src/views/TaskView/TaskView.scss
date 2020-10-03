@@ -1,5 +1,11 @@
 @import '../../shared';
 
+.absolute-wrapper {
+  position: absolute;
+  left: 2vw;
+  width: 100%;
+}
+
 .task-due {
   color: $text-color;
 }

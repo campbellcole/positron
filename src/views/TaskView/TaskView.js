@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './TaskView.scss'
+import '../../scss/scrollbar.scss'
 import sassColors from '../../_shared.scss'
 import CenterCard from '../../components/CenterCard/CenterCard'
 import moment from 'moment'
@@ -25,10 +26,12 @@ export default class TaskView extends Component {
     return (
       <div className='scroll'>
         <CenterCard title={this.state.task.title}>
-          <div className='task-controls'>
-            { this.state.task.url !== '' &&
-              <span className='task-control' onClick={this.openTaskURL}>Open URL</span>
-            }
+          <div className='absolute-wrapper'>
+            <div className='task-controls'>
+              { this.state.task.url !== '' &&
+                <span className='task-control' onClick={this.openTaskURL}>Open URL</span>
+              }
+            </div>
           </div>
           <center>
             <h6 className='task-due'>
@@ -40,7 +43,7 @@ export default class TaskView extends Component {
                 id='description-frame'
                 frameBorder='false'
                 onLoad={({target: frame})=>{
-                  // clean up canvas imports
+                  // clean up canvas descriptions
                   var elems = frame.contentWindow.document.querySelectorAll('p')
                   for (const p of elems) {
                     if ((p.innerText.trim() == '' && p.innerHTML.trim() == '') || p.innerHTML === '&nbsp;') {

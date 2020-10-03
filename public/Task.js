@@ -1,11 +1,11 @@
 function Task(
-  id,
   title,
   dueDate,
   description,
   url,
   groups,
-  completed
+  completed,
+  id = -1
 ) {
   return {
     id: id,
