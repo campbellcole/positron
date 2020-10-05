@@ -2,7 +2,6 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
 const PositronStore = require('./PositronStore')
-const { getCanvasTasks } = require('./canvas')
 
 var mainWindow, store
 

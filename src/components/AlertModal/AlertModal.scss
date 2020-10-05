@@ -1,0 +1,17 @@
+.modal-buttons {
+  padding: 1rem 2.1875rem;
+  position: relative;
+  flex: 1 1 auto;
+  border-top: 1px solid #dfe1e3;
+  display: flex;
+  align-content: center;
+  button {
+    flex: 1 1;
+  }
+  button:not(:first-child) {
+    margin-left: 3px;
+  }
+  button:not(:last-child) {
+    margin-right: 3px;
+  }
+}

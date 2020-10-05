@@ -5,12 +5,13 @@ import Positron from './Positron'
 import Header from './components/Header/Header'
 import Banner from './components/Banner/Banner'
 import Footer from './components/Footer/Footer'
+import AlertModal from './components/AlertModal/AlertModal'
 import { HashRouter } from 'react-router-dom'
 import { ipc_get } from './util'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
 import 'shards-ui/dist/css/shards.min.css'
 import './index.scss'
-import AlertModal from './components/AlertModal/AlertModal'
 
 class App extends Component {
   constructor() {
@@ -61,7 +62,7 @@ class App extends Component {
       this.setState({loading: true})
       ipc_get('tasks:remote').then(newTasks => {
         this.setState({loading: false})
-        if (newTasks.length > 0) {
+        if (newTasks.length > -1) {
           this.refreshTasks(true)
           this.showAlert('Import Complete', `Grabbed ${newTasks.length} new assignments from Canvas. They will be automatically loaded within the next few seconds.`)
         }

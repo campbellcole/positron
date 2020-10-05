@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, ModalBody, ModalHeader } from 'shards-react'
+import './AlertModal.scss'
 
 export default class AlertModal extends Component {
   render() {
@@ -10,9 +11,10 @@ export default class AlertModal extends Component {
         </ModalHeader>
         <ModalBody>
           {this.props.description}
-          <hr />
-          <button className='btn btn-dark' onClick={this.props.toggle}>OK</button>
         </ModalBody>
+        <div className='modal-buttons'>
+          <button className='btn btn-dark' onClick={this.props.toggle}>OK</button>
+        </div>
       </Modal>
     )
   }
