@@ -2,7 +2,6 @@ const electron = require('electron')
 const path = require('path')
 const fs = require('fs')
 const fetch = require('node-fetch');
-const { getCanvasTasks } = require('./canvas')
 const Task = require('./Task')
 
 const DEFAULT_STORE_LAYOUT = {
