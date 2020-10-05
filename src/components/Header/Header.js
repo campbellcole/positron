@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MdRemove, MdClose, MdFullscreen, MdFullscreenExit, MdFileDownload } from 'react-icons/md'
+import { MdRemove, MdClose, MdFullscreen, MdFullscreenExit, MdFileDownload, MdRefresh } from 'react-icons/md'
 import { AiOutlineDrag } from 'react-icons/ai'
 import { DiTerminal } from 'react-icons/di'
 import { Link } from 'react-router-dom'
@@ -35,7 +35,12 @@ export default class Header extends Component {
           </span>
           <span id='control_minimize' className='control' onClick={this.sendMinimize}><MdRemove /></span>
           <span id='control_devtools' className='control' onClick={this.sendOpenTools}><DiTerminal /></span>
-          <Link to='/import' component={LinkReference(<MdFileDownload />, 'control')}/>
+          <Link to='/import' component={
+            LinkReference(
+              this.props.loading ? <MdRefresh className='rotate'/> : <MdFileDownload />,
+              'control'
+            )
+          }/>
         </div>
       </div>
     )

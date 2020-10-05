@@ -87,6 +87,7 @@ export default class AddTaskView extends Component {
   }
   componentDidMount() {
     ipc_get('groups').then(groups => {
+      console.log(groups)
       let formattedGroups = []
       for (const group of groups) {
         formattedGroups.push({label: group, value: group})

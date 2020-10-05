@@ -8,7 +8,8 @@ const Task = require('./Task')
 const DEFAULT_STORE_LAYOUT = {
   tasks: [],
   groups: {},
-  canvas: {}
+  canvas: {},
+  login: { base_url: undefined, access_token: undefined }
 }
 
 const DEFAULT_GROUP_LAYOUT = {
@@ -28,7 +29,7 @@ class PositronStore {
   
   getGroups() {
     var groupList = []
-    for (const group of this.data.groups) groupList.push(group)
+    for (const group in this.data.groups) groupList.push(group)
     return groupList
   }
 
@@ -36,11 +37,26 @@ class PositronStore {
     return this.data.groups[groupID]
   }
 
-  async refreshCanvasImports(base_url, access_token) {
-    if (access_token === undefined) return []
-    console.log('getting canvas tasks')
+  setCanvasLogin(base_url, access_token) {
+    this.data.login.base_url = base_url
+    this.data.login.access_token = access_token
+    this.resetCanvasImports()
+  }
+
+  resetCanvasImports() {
+    this.data.tasks = this.data.tasks.filter(task => !task.canvasID)
+    this.canvas = {}
+    this.save()
+  }
+
+  async refreshCanvasImports() {
+    const { login } = this.data
+    if (!login.access_token || !login.base_url) return []
+    const { base_url, access_token } = login
+    console.log(`getting canvas tasks from ${base_url}`)
     const canvURL = (endpoint) => `https://${base_url}/api/v1/${endpoint}?per_page=999`
     const canv = (endpoint) => fetch(canvURL(endpoint), {headers: {'Authorization':`Bearer ${access_token}`}}).then(res => res.json())
+    const date = (due_at) => (due_at && Date.parse(due_at)) || undefined
     const courses = await canv('courses')
     var possibleTasks = []
     for (const course of courses) {
@@ -48,15 +64,14 @@ class PositronStore {
       const assignments = await canv(`courses/${course.id}/assignments`)
       for (const assignment of assignments) {
         var stored = this.data.canvas[course.id][assignment.id] || NULL_TASK
-        const date = (due_at) => (due_at && Date.parse(due_at)) || undefined
         this.data.canvas[course.id][assignment.id] = assignment
-        if (this.data.tasks.filter(task => task.id === (assignment.id || stored.id)).length === 0) {
+        if (this.data.tasks.filter(task => task.canvasID && task.canvasID === (assignment.id || stored.id)).length === 0) {
           possibleTasks.push(Task(
             assignment.name || stored.name || `${course.course_code} assignment`,
             date(assignment.due_at) || date(stored.due_at) || 0,
             assignment.description || stored.description || `Imported from class: ${course.name} (${course.course_code})`,
             assignment.html_url || stored.html_url || undefined,
-            [`${course.course_code}`],
+            [`${course.course_code.replace(/\W/g, '_')}`],
             false,
             assignment.id || stored.id || -1
           ))
@@ -65,7 +80,7 @@ class PositronStore {
     }
     console.log(`complete, found ${possibleTasks.length} new tasks`)
     this.addAllTasks(possibleTasks)
-    return this.data.tasks
+    return possibleTasks
   }
 
   getTasks() {
@@ -120,12 +135,12 @@ class PositronStore {
     this.data.tasks.splice(taskIndex, 1)
   }
 
-  save() {
-    fs.writeFileSync(this.path, JSON.stringify(this.data))
-  }
-
   getNextTaskIndex() {
     return this.data.tasks.length
+  }
+
+  save() {
+    fs.writeFileSync(this.path, JSON.stringify(this.data))
   }
 }
 

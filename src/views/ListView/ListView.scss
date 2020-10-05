@@ -8,13 +8,13 @@ ul {
 }
 
 .list-group-item-heading {
-  color: $text-color-light;
+  color: $text-color-light !important;
   margin: 0;
 }
 
 .list-group-item {
-  color: $text-color;
-  background-color: rgb(63, 63, 63);
+  color: $text-color !important;
+  background-color: rgb(63, 63, 63) !important;
 }
 
 .list-group-item-text {
@@ -22,12 +22,24 @@ ul {
 }
 
 .list-group-item-action:hover {
-  color: $text-color;
-  background-color: rgb(48, 48, 48);
+  color: $text-color !important;
+  background-color: rgb(48, 48, 48) !important;
 }
 
 .item-add-btn {
   padding: 0;
   font-family: $font-family;
   color: $text-color-light;
+}
+
+.add-btn-list {
+  color: $text-color-light !important;
+  text-decoration: none !important;
+  display: block !important;
+  text-align: center !important;
+  padding: 10px 0px !important;
+}
+
+.add-btn-list:hover {
+  color: $text-color-light !important;
 }

@@ -3,28 +3,26 @@ import CenterCard, { CenterCardButton } from '../../components/CenterCard/Center
 import LabelledInput from '../../components/LabelledInput/LabelledInput'
 import { ipc_get } from '../../util'
 
-export default class CanvasImportView extends Component {
+export default class CanvasLoginView extends Component {
   constructor() {
     super()
     this.handleImport = this.handleImport.bind(this)
-    this.state = { cardTitle: 'Canvas Importer' }
+    this.state = { saved: false }
   }
   render() {
     return (
-      <CenterCard title={this.state.cardTitle}>
+      <CenterCard title='Canvas Login'>
         <LabelledInput id='token' title='Access Token' type='text' />
         <LabelledInput id='url' title='Canvas URL' type='text' />
         <LabelledInput render={() => (
-          <CenterCardButton onClick={this.handleImport}>Import</CenterCardButton>
+          <CenterCardButton onClick={this.handleImport}>{ this.state.saved ? 'Saved' : 'Save Login'}</CenterCardButton>
         )}/>
       </CenterCard>
     )
   }
   handleImport() {
-    this.setState({cardTitle:'Loading...'})
-    ipc_get('canvas', {url:document.getElementById('url').value,token:document.getElementById('token').value}).then(tasks => {
-      this.props.onImported(tasks)
-      this.setState({cardTitle: 'IMPORT COMPLETE'})
-    })
+    ipc_get('setCanvasLogin', {base_url: document.getElementById('url').value, access_token: document.getElementById('token').value})
+    this.setState({ saved: true })
+    this.props.onSaved()
   }
 }

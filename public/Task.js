@@ -5,10 +5,12 @@ function Task(
   url,
   groups,
   completed,
-  id = -1
+  canvasID = -1,
+  id = -1,
 ) {
   return {
     id: id,
+    canvasID: canvasID,
     title: title,
     dueDate: dueDate,
     description: description,

@@ -47,10 +47,14 @@ function createWindow() {
     }
   })
   ipcMain.on('get', (_, request) => {
+    const send = (data) => {
+      request.response = data
+      mainWindow.webContents.send('got', request)
+    }
     switch (request.name) {
       case 'groups':
         var groups = store.getGroups()
-        request.response = groups
+        send(groups)
         break
       case 'newTask':
         if (request.data !== undefined) {
@@ -58,25 +62,24 @@ function createWindow() {
           store.addTask(task)
         }
         // fall through
-      case 'tasks':
-        request.response = store.getTasks()
+      case 'tasks:local':
+        console.log('getting local tasks')
+        send(store.getTasks())
         break
-      case 'canvas':
-        var canvasInfo = request.data
-        store.refreshCanvasImports(canvasInfo.url, canvasInfo.token).then(tasks => {
-          request.response = tasks
-          mainWindow.webContents.send('got', request)
-        }).catch(err => {
+      case 'tasks:remote':
+        console.log('getting remote tasks')
+        store.refreshCanvasImports().then(tasks => send(tasks)).catch(err => {
           console.error(err)
-          request.response = []
-          mainWindow.webContents.send('got', request)
+          send([])
         })
         break
+      case 'setCanvasLogin':
+        console.log('setting canvas login')
+        store.setCanvasLogin(request.data.base_url, request.data.access_token)
       default:
-        request.response = 'bad request'
+        send('bad request')
         break
     }
-    if (request.response) mainWindow.webContents.send('got', request)
   })
 }
 

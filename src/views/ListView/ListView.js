@@ -13,7 +13,7 @@ export default class ListView extends Component {
       <div className='scroll'>
         <ListGroup>
           <ListGroupItem key={-1} action className='item-add-btn'>
-            <Link to='/add' component={LinkReference('Add Task', 'add-btn-list')} />
+            <Link to='/add' className='add-btn-list'>Add Task</Link>
           </ListGroupItem>
           { this.props.tasks.map((value, index) => {
             return (
