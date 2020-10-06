@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import './CalendarView.scss'
 import { Redirect } from 'react-router-dom'
