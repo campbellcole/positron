@@ -17,3 +17,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
+
+*:focus, *:active {
+  outline: none !important;
+}
+
+a {
+  text-decoration: none !important;
+}

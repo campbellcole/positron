@@ -105,7 +105,6 @@ export default class AddTaskView extends Component {
       groups: this.state.selectedGroups.map((group) => group.value),
       completed: false
     }
-    console.log(task)
     ipc_get('newTask', task).then((response) => console.log(response))
   }
   handleGroupCreate(newValue) {
@@ -117,11 +116,7 @@ export default class AddTaskView extends Component {
     groups.push(newOption)
     this.setState({ selectedGroups: groups })
   }
-  handleValueChange(newValue, actionMeta) {
-    console.group('Value Changed');
-    console.log(newValue);
-    console.log(`action: ${actionMeta.action}`);
-    console.groupEnd();
+  handleValueChange(newValue, _) {
     this.setState({ selectedGroups: newValue });
   }
 }

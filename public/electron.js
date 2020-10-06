@@ -62,11 +62,9 @@ function createWindow() {
         }
         // fall through
       case 'tasks:local':
-        console.log('getting local tasks')
         send(store.getTasks())
         break
       case 'tasks:remote':
-        console.log('getting remote tasks')
         store.refreshCanvasImports().then(tasks => send(tasks)).catch(err => {
           console.error(err)
           send([])

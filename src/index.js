@@ -62,7 +62,7 @@ class App extends Component {
       this.setState({loading: true})
       ipc_get('tasks:remote').then(newTasks => {
         this.setState({loading: false})
-        if (newTasks.length > -1) {
+        if (newTasks.length > 0) {
           this.refreshTasks(true)
           this.showAlert('Import Complete', `Grabbed ${newTasks.length} new assignments from Canvas. They will be automatically loaded within the next few seconds.`)
         }

@@ -9,8 +9,6 @@ import CanvasLoginView from './views/CanvasLoginView/CanvasLoginView'
 import TaskView from './views/TaskView/TaskView'
 import './Positron.scss'
 import './scss/scrollbar.scss'
-import LinkReference from './Links'
-import { ipc_get } from './util'
 
 export default class Positron extends Component {
   render() {

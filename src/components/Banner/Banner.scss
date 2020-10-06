@@ -3,41 +3,30 @@
 h3 {
   padding: 6px;
   padding-top: 4px;
-  margin: 0;
 }
 
 .banner {
   margin-top: 1vw;
   text-align: center;
   background-color: #202324bc;
-  padding-bottom: 5px;
   border-top: 2px solid $border-color;
   border-bottom: 2px solid $border-color;
   box-shadow: 0px 5px 8px #111;
 }
 
 @media screen and (max-width: 767px) {
-  .banner {
-    padding-bottom: 5px;
-  }
   .banner-text {
     font-size: 32px;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .banner {
-    padding-bottom: 8px;
-  }
   .banner-text {
     font-size: 44px;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .banner {
-    padding-bottom: 12px;
-  }
   .banner-text {
     font-size: 50px;
   }

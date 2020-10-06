@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { ipc_get } from '../../util'
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'shards-react'
 import { Link } from 'react-router-dom'
 import './ListView.scss'
 import '../../scss/scrollbar.scss'
-import LinkReference from '../../Links'
 import moment from 'moment'
 
 export default class ListView extends Component {
