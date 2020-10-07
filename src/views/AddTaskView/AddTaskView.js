@@ -4,7 +4,7 @@ import Creatable from 'react-select/creatable'
 import makeAnimated from 'react-select/animated'
 import CenterCard, { CenterCardButton } from '../../components/CenterCard/CenterCard'
 import LabelledInput from '../../components/LabelledInput/LabelledInput'
-import { ipc_get, refresh_tasks } from '../../util'
+import { ipc_get, call_global } from '../../util'
 
 const selectStyles = {
   option: (provided) => ({
@@ -104,7 +104,13 @@ export default class AddTaskView extends Component {
       groups: this.state.selectedGroups.map((group) => group.value),
       completed: false
     }
-    ipc_get('newTask', task).then(_ => refresh_tasks(true))
+    ipc_get('newTask', task).then(_ => {
+      call_global('alert', 'Task Added', `Task "${task.title}" has been added.`)
+      this.props.history.goBack()
+      call_global('refresh', true)
+    }).catch(err => {
+      call_global('alert', 'Failed to Add Task', `There was an error when adding the task: ${err}`)
+    })
   }
   handleGroupCreate(newValue) {
     var groups = this.state.selectedGroups

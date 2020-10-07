@@ -4,7 +4,7 @@ import '../../scss/scrollbar.scss'
 import sassColors from '../../_shared.scss'
 import CenterCard from '../../components/CenterCard/CenterCard'
 import moment from 'moment'
-import { ipc_get, refresh_tasks, redirect, show_alert } from '../../util'
+import { ipc_get, call_global } from '../../util'
 
 export default class TaskView extends Component {
   constructor(props) {
@@ -68,9 +68,9 @@ export default class TaskView extends Component {
   }
   removeTask() {
     ipc_get('removeTask', this.state.task.id).then(_ => {
-      refresh_tasks(true)
-      redirect('/calendar')
-      show_alert('Task Deleted', `The task "${this.state.task.title}" has been removed.`)
+      call_global('alert', 'Task Deleted', `The task "${this.state.task.title}" has been removed.`)
+      this.props.history.goBack()
+      call_global('refresh', true)
     })
   }
   componentDidMount() {

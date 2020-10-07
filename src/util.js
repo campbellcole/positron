@@ -34,35 +34,14 @@ function ipc_get(name, data = undefined) {
 }
 
 var _functions = {}
-
-var _refreshFunction;
-function set_refresh_function(refreshFunction) {
-  _functions['refresh'] = refreshFunction
+function register_global_function(name, func) {
+  _functions[name] = func
 }
 
-function refresh_tasks(...args) {
-  _functions['refresh'](...args)
-}
-
-function set_redirect_function(redirectFunction) {
-  _functions['redirect'] = redirectFunction
-}
-
-function redirect(...args) {
-  _functions['redirect'](...args)
-}
-
-function set_alert_function(alertFunction) {
-  _functions['alert'] = alertFunction
-}
-
-function show_alert(...args) {
-  _functions['alert'](...args)
+function call_global(name, ...args) {
+  return _functions[name](...args)
 }
 
 export {
-  ipc_get,
-  set_refresh_function, refresh_tasks,
-  set_redirect_function, redirect,
-  set_alert_function, show_alert
+  ipc_get, register_global_function, call_global
 }

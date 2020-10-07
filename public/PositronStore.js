@@ -132,6 +132,7 @@ class PositronStore {
       } else delete this.data.groups[groupID]
     }
     this.data.tasks.splice(taskIndex, 1)
+    this.save()
   }
 
   getNextTaskIndex() {

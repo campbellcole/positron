@@ -7,7 +7,7 @@ import Banner from './components/Banner/Banner'
 import Footer from './components/Footer/Footer'
 import AlertModal from './components/AlertModal/AlertModal'
 import { HashRouter, Redirect } from 'react-router-dom'
-import { ipc_get, set_refresh_function, set_redirect_function, set_alert_function } from './util'
+import { ipc_get, register_global_function } from './util'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'shards-ui/dist/css/shards.min.css'
@@ -28,9 +28,9 @@ class App extends Component {
     this.showAlert = this.showAlert.bind(this)
     this.toggleAlert = this.toggleAlert.bind(this)
     this.redirect = this.redirect.bind(this)
-    set_refresh_function(this.refreshTasks)
-    set_redirect_function(this.redirect)
-    set_alert_function(this.showAlert)
+    register_global_function('refresh', this.refreshTasks)
+    register_global_function('redirect', this.redirect)
+    register_global_function('alert', this.showAlert)
   }
   render() {
     return (
