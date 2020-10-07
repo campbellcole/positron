@@ -21,9 +21,12 @@ export default class CanvasLoginView extends Component {
     )
   }
   handleImport() {
-    ipc_get('setCanvasLogin', {base_url: document.getElementById('url').value, access_token: document.getElementById('token').value})
-    this.setState({ saved: true })
-    this.props.history.goBack()
-    call_global('refresh')
+    ipc_get('setCanvasLogin', {base_url: document.getElementById('url').value, access_token: document.getElementById('token').value}).then(_ => {
+      this.setState({ saved: true })
+      this.props.history.goBack()
+      call_global('refresh')
+    }).catch(err => {
+      call_global('alert', 'Canvas Login Error', `There was an error saving Canvas login credentials: ${err}`)
+    })
   }
 }

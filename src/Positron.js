@@ -11,9 +11,6 @@ import './Positron.scss'
 import './scss/scrollbar.scss'
 
 export default class Positron extends Component {
-  constructor(props) {
-    super()
-  }
   render() {
     return (
       <div className='app' id='app'>

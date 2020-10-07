@@ -92,6 +92,8 @@ export default class AddTaskView extends Component {
         formattedGroups.push({label: group, value: group})
       }
       this.setState({groups: formattedGroups})
+    }).catch(err => {
+      call_global('alert', 'Groups Error', `There was an error retrieving task groups: ${err}`)
     })
   }
   handleSubmit() {

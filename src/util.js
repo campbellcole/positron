@@ -33,13 +33,13 @@ function ipc_get(name, data = undefined) {
   return promise
 }
 
-var _functions = {}
+var _globals = {}
 function register_global_function(name, func) {
-  _functions[name] = func
+  _globals[name] = func
 }
 
 function call_global(name, ...args) {
-  return _functions[name](...args)
+  return _globals[name](...args)
 }
 
 export {

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import GroupCard from '../../components/GroupCard/GroupCard'
 import './GroupView.scss'
+
+// this class doesn't use the new group layout from the store
+// update this to use ipc_get('groups') and go from there
 
 export default class GroupView extends Component {
   constructor() {
@@ -18,16 +22,7 @@ export default class GroupView extends Component {
     }
     var cards = []
     for (const group in tasksByGroup) {
-      cards.push(
-        <div className='group-card'>
-          <div className='group-header'>{group}</div>
-          <ul className='group-tasks'>
-            { tasksByGroup[group].map(task => (
-              <li className='group-task' onClick={this.handleTaskClick(task)}>{task.title}</li>
-            ))}
-          </ul>
-        </div>
-      )
+      cards.push(<GroupCard title={group} tasks={tasksByGroup[group]} handleTaskClick={this.handleTaskClick}/>)
     }
     return (
       <div className='groups scroll'>
