@@ -4,7 +4,7 @@ import Creatable from 'react-select/creatable'
 import makeAnimated from 'react-select/animated'
 import CenterCard, { CenterCardButton } from '../../components/CenterCard/CenterCard'
 import LabelledInput from '../../components/LabelledInput/LabelledInput'
-import { ipc_get } from '../../util'
+import { ipc_get, refresh_tasks } from '../../util'
 
 const selectStyles = {
   option: (provided) => ({
@@ -87,7 +87,6 @@ export default class AddTaskView extends Component {
   }
   componentDidMount() {
     ipc_get('groups').then(groups => {
-      console.log(groups)
       let formattedGroups = []
       for (const group of groups) {
         formattedGroups.push({label: group, value: group})
@@ -105,7 +104,7 @@ export default class AddTaskView extends Component {
       groups: this.state.selectedGroups.map((group) => group.value),
       completed: false
     }
-    ipc_get('newTask', task).then((response) => console.log(response))
+    ipc_get('newTask', task).then(_ => refresh_tasks(true))
   }
   handleGroupCreate(newValue) {
     var groups = this.state.selectedGroups

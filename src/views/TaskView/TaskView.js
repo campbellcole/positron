@@ -4,6 +4,7 @@ import '../../scss/scrollbar.scss'
 import sassColors from '../../_shared.scss'
 import CenterCard from '../../components/CenterCard/CenterCard'
 import moment from 'moment'
+import { ipc_get, refresh_tasks, redirect, show_alert } from '../../util'
 
 export default class TaskView extends Component {
   constructor(props) {
@@ -12,14 +13,15 @@ export default class TaskView extends Component {
       this.state = { task: props.location.state.task }
     } else this.state = { task: {
       id: 1,
-      title: 'test title',
+      title: 'NULL TASK',
       dueDate: new Date(),
-      description: 'TEST DESCRIPTION',
+      description: 'Page refreshed while viewing task, here is a placeholder task for you to view the styles with :)',
       url: 'https://google.com',
       groups: ['test_group'],
       completed: false
     }}
     this.openTaskURL = this.openTaskURL.bind(this)
+    this.removeTask = this.removeTask.bind(this) 
   }
   render() {
     let date = moment(this.state.task.dueDate)
@@ -31,6 +33,7 @@ export default class TaskView extends Component {
               { this.state.task.url !== '' &&
                 <span className='task-control' onClick={this.openTaskURL}>Open URL</span>
               }
+              <span className='task-control' onClick={this.removeTask}>Remove Task</span>
             </div>
           </div>
           <center>
@@ -62,6 +65,13 @@ export default class TaskView extends Component {
   }
   openTaskURL() {
     window.open(this.state.task.url)
+  }
+  removeTask() {
+    ipc_get('removeTask', this.state.task.id).then(_ => {
+      refresh_tasks(true)
+      redirect('/calendar')
+      show_alert('Task Deleted', `The task "${this.state.task.title}" has been removed.`)
+    })
   }
   componentDidMount() {
     var frame = document.getElementById('description-frame')

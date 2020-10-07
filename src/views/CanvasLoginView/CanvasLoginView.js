@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CenterCard, { CenterCardButton } from '../../components/CenterCard/CenterCard'
 import LabelledInput from '../../components/LabelledInput/LabelledInput'
-import { ipc_get } from '../../util'
+import { ipc_get, refresh_tasks } from '../../util'
 
 export default class CanvasLoginView extends Component {
   constructor() {
@@ -23,6 +23,6 @@ export default class CanvasLoginView extends Component {
   handleImport() {
     ipc_get('setCanvasLogin', {base_url: document.getElementById('url').value, access_token: document.getElementById('token').value})
     this.setState({ saved: true })
-    this.props.onSaved()
+    refresh_tasks()
   }
 }

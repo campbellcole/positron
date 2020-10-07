@@ -10,7 +10,9 @@ export default class AlertModal extends Component {
           {this.props.title}
         </ModalHeader>
         <ModalBody>
-          {this.props.description}
+          <pre>
+            {this.props.description}
+          </pre>
         </ModalBody>
         <div className='modal-buttons'>
           <button className='btn btn-dark' onClick={this.props.toggle}>OK</button>

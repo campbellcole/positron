@@ -6,8 +6,8 @@ import Header from './components/Header/Header'
 import Banner from './components/Banner/Banner'
 import Footer from './components/Footer/Footer'
 import AlertModal from './components/AlertModal/AlertModal'
-import { HashRouter } from 'react-router-dom'
-import { ipc_get } from './util'
+import { HashRouter, Redirect } from 'react-router-dom'
+import { ipc_get, set_refresh_function, set_redirect_function, set_alert_function } from './util'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'shards-ui/dist/css/shards.min.css'
@@ -27,6 +27,10 @@ class App extends Component {
     this.refreshTasks = this.refreshTasks.bind(this)
     this.showAlert = this.showAlert.bind(this)
     this.toggleAlert = this.toggleAlert.bind(this)
+    this.redirect = this.redirect.bind(this)
+    set_refresh_function(this.refreshTasks)
+    set_redirect_function(this.redirect)
+    set_alert_function(this.showAlert)
   }
   render() {
     return (
@@ -38,6 +42,9 @@ class App extends Component {
             title={this.state.alertTitle}
             description={this.state.alertDescription}
           />
+        }
+        { this.state.redirect && 
+          <Redirect to={this.state.redirect} />
         }
         <Header loading={this.state.loading}/>
         <Banner>
@@ -63,14 +70,37 @@ class App extends Component {
       ipc_get('tasks:remote').then(newTasks => {
         this.setState({loading: false})
         if (newTasks.length > 0) {
+          var msg = `Grabbed ${newTasks.length} new assignment(s) from Canvas.`
+          if (newTasks.length <= 10) {
+            for (const task of newTasks) {
+              msg += `\n${task.title}`
+            }
+          } else {
+            var assignmentsByGroup = {}
+            for (const task of newTasks) {
+              for (const group of task.groups) {
+                if (assignmentsByGroup[group]) assignmentsByGroup[group]++;
+                else assignmentsByGroup[group] = 1;
+              }
+            }
+            for (const group in assignmentsByGroup) {
+              msg += `\n[${group}] ${assignmentsByGroup[group]} assignment(s)`
+            }
+          }
+          this.showAlert('Import Complete', msg)
           this.refreshTasks(true)
-          this.showAlert('Import Complete', `Grabbed ${newTasks.length} new assignments from Canvas. They will be automatically loaded within the next few seconds.`)
         }
+      }).catch(err => {
+        this.setState({loading: false})
+        this.showAlert('Import Error', `There was an error importing assignments from Canvas: ${err}`)
       })
     }
   }
   setTasks(tasks) {
     this.setState({tasks: tasks})
+  }
+  redirect(to) {
+    this.setState({redirect: to})
   }
   componentDidMount() {
     this.refreshTasks()

@@ -1,0 +1,41 @@
+@import '../../shared';
+
+.groups {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.group-card  {
+  padding: 2px 5px;
+  margin: 3px 5px;
+  border-radius: 5px;
+  background-color: $card-color-light;
+  flex: 1 0;
+  white-space: nowrap;
+  height: 100%;
+}
+
+.group-header {
+  text-align: center;
+  padding: 2px 5px;
+  color: $text-color-light;
+  background-color: $card-color-dark;
+  border-radius: 4px;
+}
+
+.group-tasks {
+  margin: 0 0 4px;
+}
+
+.group-task {
+  cursor: pointer;
+  color: $text-color;
+  margin: 1px;
+  padding: 0 3px;
+  transition: linear 0.15s;
+  border-radius: 4px;
+}
+
+.group-task:hover {
+  background-color: $card-color-darker;
+}

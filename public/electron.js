@@ -60,7 +60,15 @@ function createWindow() {
           var task = request.data
           store.addTask(task)
         }
-        // fall through
+        send(store.getTasks())
+        break;
+      case 'removeTask':
+        if (request.data !== undefined) {
+          var taskID = request.data;
+          store.removeTask(taskID)
+        }
+        send(store.getTasks())
+        break;
       case 'tasks:local':
         send(store.getTasks())
         break
