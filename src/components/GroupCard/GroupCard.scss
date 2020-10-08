@@ -20,13 +20,13 @@
 }
 
 .group-tasks {
-  transition: all 0.25s linear;
+  transition: all 0.25s linear, max-height 0.5s linear;
   margin: 0 0 4px;
-  max-height: auto;
+  max-height: 2000px;
 }
 
 .group-task {
-  transition: white-space 0.25s linear;
+  transition: all 0.25s linear;
   cursor: pointer;
   color: $text-color-light;
   margin: 1px;
