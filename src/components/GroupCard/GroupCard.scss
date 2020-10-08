@@ -6,13 +6,13 @@
   border-radius: 5px;
   background-color: $card-color-light;
   flex: 1 0;
-  white-space: nowrap;
   height: 100%;
 }
 
 .group-header {
   margin-top: 3px;
   text-align: center;
+  cursor: pointer;
   padding: 2px 5px;
   color: $text-color-light;
   background-color: $card-color-dark;
@@ -20,14 +20,18 @@
 }
 
 .group-tasks {
+  transition: all 0.25s linear;
   margin: 0 0 4px;
+  max-height: auto;
 }
 
 .group-task {
+  transition: white-space 0.25s linear;
   cursor: pointer;
   color: $text-color-light;
   margin: 1px;
   padding: 0 3px;
+  white-space: nowrap;
   transition: linear 0.15s;
   border-radius: 4px;
 }
@@ -35,4 +39,15 @@
 .group-task:hover {
   color: lighten($text-color, 7%);
   background-color: $card-color-darker;
+}
+
+.collapsed {
+  .group-tasks {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+  .group-task {
+    white-space: normal;
+  }
 }
