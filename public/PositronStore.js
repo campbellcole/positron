@@ -4,20 +4,18 @@ const fs = require('fs')
 const fetch = require('node-fetch');
 const Task = require('./Task')
 
-const DEFAULT_STORE_LAYOUT = {
+const DEFAULT_STORE_LAYOUT = () => ({
   tasks: [],
   groups: {},
-  canvas: {},
+  deleted: [], // array of canvas IDs that shouldn't be reimported
   login: { base_url: undefined, access_token: undefined }
-}
+})
 
-const DEFAULT_GROUP_LAYOUT = {
+const DEFAULT_GROUP_LAYOUT = () => ({
   tasks: [],
   label: '',
   id: '' // maybe add group colors later?
-}
-
-const NULL_TASK = Task(undefined, undefined, undefined, undefined, undefined, undefined, undefined)
+})
 
 class PositronStore {
   constructor() {
@@ -59,20 +57,18 @@ class PositronStore {
     const courses = await canv('courses')
     var possibleTasks = []
     for (const course of courses) {
-      if (!this.data.canvas[course.id]) this.data.canvas[course.id] = {}
       const assignments = await canv(`courses/${course.id}/assignments`)
       for (const assignment of assignments) {
-        var stored = this.data.canvas[course.id][assignment.id] || NULL_TASK
-        this.data.canvas[course.id][assignment.id] = assignment
-        if (this.data.tasks.filter(task => task.canvasID && task.canvasID === (assignment.id || stored.id)).length === 0) {
+        if (this.data.deleted.indexOf(assignment.id) !== -1) continue;
+        if (this.data.tasks.filter(task => task.canvasID && task.canvasID === assignment.id).length === 0) {
           possibleTasks.push(Task(
-            assignment.name || stored.name || `${course.course_code} assignment`,
-            date(assignment.due_at) || date(stored.due_at) || 0,
-            assignment.description || stored.description || `Imported from class: ${course.name} (${course.course_code})`,
-            assignment.html_url || stored.html_url || undefined,
+            assignment.name || `${course.course_code} assignment`,
+            date(assignment.due_at) || 0,
+            assignment.description || `Imported from class: ${course.name} (${course.course_code})`,
+            assignment.html_url || undefined,
             [`${course.course_code.replace(/\W/g, '_')}`],
             false,
-            assignment.id || stored.id || -1
+            assignment.id || -1
           ))
         }
       }
@@ -103,13 +99,18 @@ class PositronStore {
   _addTask(task) {
     if (task.id === -1) task.id = this.getNextTaskIndex()
     for (const groupID of task.groups) {
-      if (!this.data.groups[groupID]) this.data.groups[groupID] = DEFAULT_GROUP_LAYOUT
+      if (!this.data.groups[groupID]) {
+        this.data.groups[groupID] = DEFAULT_GROUP_LAYOUT()
+        console.log(this.data.groups[groupID])
+      }
       this.data.groups[groupID].tasks.push(task.id)
+      console.log(`adding task ${task.id} to group ${groupID}`)
     }
     this.data.tasks.push(task)
   }
 
   addAllTasks(tasks) {
+    if (tasks.length === 0) return
     for (const task of tasks) {
       this._addTask(task)
     }
@@ -126,7 +127,7 @@ class PositronStore {
     })[0]
     for (const groupID of task.groups) {
       var tasks = this.data.groups[groupID].tasks
-      tasks = tasks.filter(task => task.id !== taskID)
+      tasks = tasks.filter(task => task !== taskID)
       if (tasks.length !== 0) {
         this.data.groups[groupID].tasks = tasks
       } else delete this.data.groups[groupID]
@@ -148,7 +149,7 @@ function parseDataFile(filePath) {
   try {
     return JSON.parse(fs.readFileSync(filePath))
   } catch(error) {
-    return DEFAULT_STORE_LAYOUT
+    return DEFAULT_STORE_LAYOUT()
   }
 }
 

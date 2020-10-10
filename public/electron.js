@@ -11,6 +11,7 @@ function createWindow() {
     height: 720,
     show: false,
     frame: false,
+    icon: path.join(__dirname, '../assets/icon.png'),
     webPreferences: {
       nodeIntegration: true,
     }
