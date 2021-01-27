@@ -9,18 +9,18 @@ import { ipc_get, call_global } from '../../util'
 const selectStyles = {
   option: (provided) => ({
     ...provided,
-    color: sassColors.textColorLight,
+    color: sassColors.textColorLight
   }),
   container: (provided) => ({
     ...provided,
     flexGrow: '1',
     fontFamily: ['Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'],
-    fontSize: '12px',
+    fontSize: '12px'
   }),
   valueContainer: (provided) => ({
     ...provided,
-    padding: 0,
-  }),
+    padding: 0
+  })
 }
 
 const selectTheme = (theme) => ({
@@ -43,7 +43,7 @@ const selectTheme = (theme) => ({
     neutral60: sassColors.textColorLight, // carrat color
     neutral70: '',
     neutral80: sassColors.textColorLight, // cursor and selected item text color
-    neutral90: '',
+    neutral90: ''
   }
 })
 
@@ -124,6 +124,6 @@ export default class AddTaskView extends Component {
     this.setState({ selectedGroups: groups })
   }
   handleValueChange(newValue, _) {
-    this.setState({ selectedGroups: newValue });
+    this.setState({ selectedGroups: newValue })
   }
 }

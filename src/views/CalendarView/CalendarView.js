@@ -4,6 +4,14 @@ import moment from 'moment'
 import './CalendarView.scss'
 import { Redirect } from 'react-router-dom'
 
+/*
+==============================
+
+CHANGE react-big-calendar TO @fullcalendar/core -- IT LOOKS SO MUCH BETTER
+
+==============================
+*/
+
 const localizer = momentLocalizer(moment)
 
 export default class CalendarView extends Component {

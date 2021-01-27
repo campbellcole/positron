@@ -13,7 +13,7 @@ function createWindow() {
     frame: false,
     icon: path.join(__dirname, '../assets/icon.png'),
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: true
     }
   })
   const mainURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
@@ -41,7 +41,7 @@ function createWindow() {
         break
       case 'openTools':
         mainWindow.openDevTools({ mode: 'undocked'})
-        break;
+        break
       default: 
         break
     }
@@ -62,14 +62,14 @@ function createWindow() {
           store.addTask(task)
         }
         send(store.getTasks())
-        break;
+        break
       case 'removeTask':
         if (request.data !== undefined) {
-          var taskID = request.data;
+          var taskID = request.data
           store.removeTask(taskID)
         }
         send(store.getTasks())
-        break;
+        break
       case 'tasks:local':
         send(store.getTasks())
         break
@@ -82,6 +82,14 @@ function createWindow() {
       case 'setCanvasLogin':
         console.log('setting canvas login')
         store.setCanvasLogin(request.data.base_url, request.data.access_token)
+        send()
+        break
+      case 'setCanvasSettings':
+        console.log('setting canvas settings')
+        store.setCanvasSettings(request.data).then(_ => {
+          send()
+        })
+        break
       default:
         send('bad request')
         break

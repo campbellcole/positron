@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Positron from './Positron'
@@ -79,8 +78,8 @@ class App extends Component {
             var assignmentsByGroup = {}
             for (const task of newTasks) {
               for (const group of task.groups) {
-                if (assignmentsByGroup[group]) assignmentsByGroup[group]++;
-                else assignmentsByGroup[group] = 1;
+                if (assignmentsByGroup[group]) assignmentsByGroup[group]++
+                else assignmentsByGroup[group] = 1
               }
             }
             for (const group in assignmentsByGroup) {

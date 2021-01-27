@@ -2,12 +2,12 @@ import { v4 as uuid } from 'uuid'
 const electron = window.require('electron')
 
 function defer() {
-  var res, rej;
+  var res, rej
   var promise = new Promise((resolve, reject) => {
-    res = resolve;
-    rej = reject;
+    res = resolve
+    rej = reject
   })
-  promise.resolve = res;
+  promise.resolve = res
   promise.reject = rej
   return promise
 }
@@ -18,7 +18,7 @@ var initialized = false
 function ipc_get(name, data = undefined) {
   if (!initialized) {
     electron.ipcRenderer.on('got', (event, data) => {
-      var handler = handlers[data.requestId];
+      var handler = handlers[data.requestId]
       if (handler !== undefined) {
         handler.resolve(data.response)
         handlers[requestId] = null

@@ -6,7 +6,7 @@ function Task(
   groups,
   completed,
   canvasID = -1,
-  id = -1,
+  id = -1
 ) {
   return {
     id: id,
