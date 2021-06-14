@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'shards-react'
+//import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'shards-react'
 import { Link } from 'react-router-dom'
 import './ListView.scss'
 import '../../scss/scrollbar.scss'
@@ -7,7 +7,8 @@ import moment from 'moment'
 
 export default class ListView extends Component {
   render() {
-    return (
+    return (<h1>WIP</h1>)
+    /*(
       <div className='scroll'>
         <ListGroup>
           <ListGroupItem key={-1} action className='item-add-btn'>
@@ -23,6 +24,6 @@ export default class ListView extends Component {
           })}
         </ListGroup>
       </div>
-    )
+    )*/
   }
 }

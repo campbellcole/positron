@@ -1,5 +1,7 @@
+// THIS FILE MUST BE UPDATED FOR ELECTRON v10+
+
 import { v4 as uuid } from 'uuid'
-const electron = window.require('electron')
+const { ipcRenderer } = window.require('electron') // only works because contextIsolation is false, which it should not be
 
 function defer() {
   var res, rej
@@ -17,7 +19,7 @@ var initialized = false
 
 function ipc_get(name, data = undefined) {
   if (!initialized) {
-    electron.ipcRenderer.on('got', (event, data) => {
+    ipcRenderer.on('got', (event, data) => {
       var handler = handlers[data.requestId]
       if (handler !== undefined) {
         handler.resolve(data.response)
@@ -29,7 +31,7 @@ function ipc_get(name, data = undefined) {
   var promise = defer()
   var requestId = uuid()
   handlers[requestId] = promise
-  electron.ipcRenderer.send('get', {requestId: requestId, name: name, data: data})
+  ipcRenderer.send('get', {requestId: requestId, name: name, data: data})
   return promise
 }
 

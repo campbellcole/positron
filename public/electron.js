@@ -13,16 +13,17 @@ function createWindow() {
     frame: false,
     icon: path.join(__dirname, '../assets/icon.png'),
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false // VERY BAD DO NOT DO THIS PLEASE FIX ASAP
     }
   })
   const mainURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
   mainWindow.loadURL(mainURL)
   mainWindow.show()
-  mainWindow.webContents.on('new-window', (e, url) => {
-    if (url != mainWindow.webContents.getURL()) {
-      e.preventDefault()
-      shell.openExternal(url)
+  mainWindow.webContents.setWindowOpenHandler((details) => { // Opens any clicked link in a new browser window
+    if (details.url != mainWindow.webContents.getURL()) {
+      shell.openExternal(details.url)
+      return {action: 'deny'}
     }
   })
   mainWindow.on('closed', () => mainWindow = null)

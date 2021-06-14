@@ -67,7 +67,6 @@ class PositronStore {
     console.log(`getting canvas tasks from ${base_url}`)
     const canvURL = (endpoint, include) => `https://${base_url}/api/v1/${endpoint}?per_page=999${include && `&include[]=${include}`}`
     const canv = (endpoint, include) => fetch(canvURL(endpoint, include), {headers: {'Authorization':`Bearer ${access_token}`}}).then(res => res.json())
-    const parseDate = (due_at) => (due_at && Date.parse(due_at)) || undefined
     const courses = await canv('courses')
     var possibleTasks = []
     for (const course of courses) {

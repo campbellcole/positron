@@ -8,8 +8,7 @@ import AlertModal from './components/AlertModal/AlertModal'
 import { HashRouter, Redirect } from 'react-router-dom'
 import { ipc_get, register_global_function } from './util'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'shards-ui/dist/css/shards.min.css'
+//import 'bootstrap/css/bootstrap.min.css'
 import './index.scss'
 
 class App extends Component {

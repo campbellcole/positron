@@ -12,7 +12,7 @@ export default class CanvasLoginView extends Component {
   }
   render() {
     return (
-      <CenterCard title='Canvas Login & Import Settings'>
+      <CenterCard title='Canvas Login & Positron Settings'>
         <LabelledInput id='token' title='Access Token' type='text' />
         <LabelledInput id='url' title='Canvas URL' type='text' />
         <LabelledInput render={() => (
