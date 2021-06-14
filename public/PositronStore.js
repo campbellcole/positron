@@ -88,16 +88,16 @@ class PositronStore {
           var completed = false
           if (this.data.settings.decent_hours && date !== 0) {
             var momentDate = moment(date)
-            var fakeMoment = momentDate.clone()
+            var decentDate = momentDate.clone()
             var decentHoursSplit = this.data.settings.decent_hours.split(':')
-            fakeMoment.set({'hours':parseInt(decentHoursSplit[0]),'minutes':parseInt(decentHoursSplit[1])})
-            if (momentDate.isAfter(fakeMoment)) {
+            decentDate.set({'hours':parseInt(decentHoursSplit[0]),'minutes':parseInt(decentHoursSplit[1])})
+            if (momentDate.isBefore(decentDate)) {
               momentDate.subtract(1, 'days')
               momentDate.set({'hours':11,'minutes':59})
+              date = momentDate.unix() * 1000
             }
-            date = momentDate.unix()
           }
-          possibleTasks.push(Task(id, name, date, description, url, groups, completed))
+          possibleTasks.push(Task(name, date, description, url, groups, completed, id))
         }
       }
     }
