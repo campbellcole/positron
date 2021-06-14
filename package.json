@@ -1,6 +1,6 @@
 {
   "name": "positron",
-  "version": "0.0.1-dev",
+  "version": "2.0.0-dev",
   "author": "Campbell M. Cole",
   "main": "./public/electron.js",
   "description": "homework manager by campbell cole",
