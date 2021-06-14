@@ -1,4 +1,16 @@
 .view_selector {
   margin: 18px 0px;
   text-align: center;
+  outline: none;
+}
+
+.btn:focus, .btn:active {
+  box-shadow: none !important;
+}
+
+.app {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  padding-bottom: 145px;
 }

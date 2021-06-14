@@ -1,49 +1,6 @@
-@use "sass:math"; // TODO: just use a constant, too lazy rn
 @import '../../shared';
 
 .calendar-container {
+    flex: 1 1 auto;
     font-family: $font-family;
-}
-
-$out-of-range-color: $card-color-light;
-$out-of-range-bg-color: lighten($card-color-light, 1%);
-$calendar-border: $border-color;
-$cell-border: lighten($border-color, 10%);
-$border-color: $border-color;
-$segment-width: percentage(math.div(1, 7));
-$time-selection-color: $card-color-dark;
-$time-selection-bg-color: rgba(0,0,0, .50);
-$date-selection-bg-color: rgba(0,0,0, .10);
-$event-bg: rgb(85, 53, 126);
-$event-border: transparent;
-$event-outline: #3b99fc;
-$event-color: $card-color-light;
-$event-border-radius: 5px;
-$event-padding: 2px 5px;
-$event-zindex: 4;
-$btn-color: $text-color-light;
-$btn-bg: $card-color-light;
-$btn-border: $border-color;
-$current-time-color: #74ad31;
-$rbc-css-prefix: rbc-i;
-$today-highlight-bg: rgb(48, 63, 60);
-
-@import 'react-big-calendar/lib/sass/variables';
-@import 'react-big-calendar/lib/sass/styles';
-
-.rbc-month-row {
-  overflow: inherit;
-}
-
-.rbc-event-content {
-  color: lighten($text-color, 15%);
-  font-size: 15px;
-}
-
-.rbc-date-cell {
-  color: $text-color-light;
-}
-
-.rbc-show-more {
-  color: $text-color-light;
 }

@@ -8,7 +8,7 @@ import AlertModal from './components/AlertModal/AlertModal'
 import { HashRouter, Redirect } from 'react-router-dom'
 import { ipc_get, register_global_function } from './util'
 
-//import 'bootstrap/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.scss'
 
 class App extends Component {
@@ -33,14 +33,12 @@ class App extends Component {
   render() {
     return (
       <HashRouter type='noslash'>
-        { this.state.showAlert && 
-          <AlertModal
-            toggle={this.toggleAlert}
-            open={this.state.showAlert}
-            title={this.state.alertTitle}
-            description={this.state.alertDescription}
-          />
-        }
+        <AlertModal
+          toggle={this.toggleAlert}
+          open={this.state.showAlert}
+          title={this.state.alertTitle}
+          description={this.state.alertDescription}
+        />
         { this.state.redirect && 
           <Redirect to={this.state.redirect} />
         }

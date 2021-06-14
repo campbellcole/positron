@@ -13,6 +13,8 @@ export default class GroupView extends Component {
     this.handleTaskClick = this.handleTaskClick.bind(this)
   }
   render() {
+    return (<h1>WIP</h1>)
+    /*
     let tasksByGroup = {}
     for (const task of this.props.tasks) {
       for (const group of task.groups) {
@@ -34,7 +36,7 @@ export default class GroupView extends Component {
         }
         { cards }
       </div>
-    )
+    )*/
   }
   handleTaskClick(task) {
     return () => this.setState({clickedTask: task})

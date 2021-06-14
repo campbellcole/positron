@@ -7,7 +7,7 @@ import moment from 'moment'
 
 export default class ListView extends Component {
   render() {
-    return (<h1>WIP</h1>)
+    return (<h1>WIP (probably won&apos;t remake, not super useful)</h1>)
     /*(
       <div className='scroll'>
         <ListGroup>

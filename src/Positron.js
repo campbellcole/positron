@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import { ButtonGroup } from 'shards-react'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { NavLink, Route } from 'react-router-dom'
 import GroupView from './views/GroupView/GroupView'
 import CalendarView from './views/CalendarView/CalendarView'
@@ -15,11 +15,11 @@ export default class Positron extends Component {
     return (
       <div className='app' id='app'>
           <div className='view_selector'>
-            <ul>
+            <ButtonGroup>
               <NavLink to='/group' activeClassName='active' className='btn btn-dark'>Group View</NavLink>
               <NavLink to='/calendar' activeClassName='active' className='btn btn-dark'>Calendar View</NavLink>
               <NavLink to='/list' activeClassName='active' className='btn btn-dark'>List View</NavLink>
-            </ul>
+            </ButtonGroup>
           </div>
           <Route path='/calendar' render={()=>(<CalendarView tasks={this.props.tasks}/>)} />
           <Route path='/group' render={()=>(<GroupView tasks={this.props.tasks}/>)} />

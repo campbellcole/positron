@@ -1,24 +1,24 @@
 import React, { Component } from 'react'
-//import { Modal, ModalBody, ModalHeader } from 'shards-react'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 import './AlertModal.scss'
 
 export default class AlertModal extends Component {
   render() {
-    return (<h1>WIP</h1>)
-    /*(
-      <Modal toggle={this.props.toggle} open={this.props.open}>
-        <ModalHeader>
-          {this.props.title}
-        </ModalHeader>
-        <ModalBody>
+    return (
+      <Modal show={this.props.open} onHide={this.props.toggle}>
+        <Modal.Header>
+          <Modal.Title>{this.props.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <pre>
             {this.props.description}
           </pre>
-        </ModalBody>
-        <div className='modal-buttons'>
-          <button className='btn btn-dark' onClick={this.props.toggle}>OK</button>
-        </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={this.props.toggle}>OK</Button>
+        </Modal.Footer>
       </Modal>
-    )*/
+    )
   }
 }
