@@ -29,6 +29,7 @@ class App extends Component {
     register_global_function('refresh', this.refreshTasks)
     register_global_function('redirect', this.redirect)
     register_global_function('alert', this.showAlert)
+    register_global_function('openURL', this.openURL)
   }
   render() {
     return (
@@ -52,6 +53,9 @@ class App extends Component {
         </Footer>
       </HashRouter>
     )
+  }
+  openURL(url) {
+    ipc_get('openURL', url).then(() => {})
   }
   toggleAlert() {
     this.setState({showAlert: !this.state.showAlert})

@@ -64,7 +64,7 @@ export default class TaskView extends Component {
     )
   }
   openTaskURL() {
-    window.open(this.state.task.url)
+    call_global('openURL', {url: this.state.task.url})
   }
   removeTask() {
     ipc_get('removeTask', this.state.task.id).then(_ => {

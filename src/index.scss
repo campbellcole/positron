@@ -6,6 +6,12 @@
 /* footer text #a8a095 */
 /* header text #bfb9b1 */
 
+:root {
+  --fc-list-event-hover-bg-color: #444444;
+  --fc-neutral-bg-color: #222222;
+  --fc-border-color: #111111;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -13,6 +19,7 @@ html, body {
 
 body {
   background-color: #181a1b;
+  color: #87b8e8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
@@ -24,6 +31,7 @@ body {
 
 a {
   text-decoration: none !important;
+  color: #87b8e8;
 }
 
 #positron {

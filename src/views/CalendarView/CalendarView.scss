@@ -4,3 +4,9 @@
     flex: 1 1 auto;
     font-family: $font-family;
 }
+
+.calendar-view-selector {
+    align-items: center;
+    display: flex !important;
+    margin-bottom: 5px;
+}

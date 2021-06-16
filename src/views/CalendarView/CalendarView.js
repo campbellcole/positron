@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Button from "react-bootstrap/Button"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import listViewPlugin from '@fullcalendar/list'
@@ -28,12 +30,23 @@ function transformEvent(event) {
 
 export default class CalendarView extends Component {
   constructor(props) {
-    super()
-    this.state = {selected: undefined, tasks: transformTasks(props.tasks)}
+    super(props)
+    this.state = {
+      selected: undefined,
+      tasks: transformTasks(props.tasks),
+      currentView: 'dayGridMonth'
+    }
+    this.calendarRef = React.createRef()
   }
+
   render() {
     return (
       <div className="calendar-container">
+        <ButtonGroup className="calendar-view-selector">
+          <Button variant="dark" active={this.state.currentView === "dayGridMonth"} onClick={() => this.changeCalendarView("dayGridMonth")}>Month</Button>
+          <Button variant="dark" active={this.state.currentView === "listWeek"} onClick={() => this.changeCalendarView("listWeek")}>Week</Button>
+          <Button variant="dark" active={this.state.currentView === "listDay"} onClick={() => this.changeCalendarView("listDay")}>Day</Button>
+        </ButtonGroup>
         { this.state.selected !== undefined &&
           <Redirect to={{
             pathname: '/task',
@@ -42,7 +55,7 @@ export default class CalendarView extends Component {
         }
         <FullCalendar
           plugins={[ dayGridPlugin, listViewPlugin, momentPlugin ]}
-          initialView="dayGridMonth"
+          initialView={this.state.currentView}
           events={this.state.tasks}
           themeSystem="bootstrap"
           eventClick={(info) => {
@@ -50,26 +63,14 @@ export default class CalendarView extends Component {
             this.setState({selected: transformEvent(info.event)})
           }}
           height="100%"
-        ></FullCalendar>
-      </div>
-    )
-      /*
-      <div className='calendar-container scroll'>
-        { this.state.selected !== undefined &&
-          <Redirect to={{
-            pathname: '/task',
-            state: { task: this.state.selected }
-          }}/>
-        }
-        <Calendar
-          localizer={localizer}
-          events={this.props.tasks}
-          allDayAccessor={()=>true}
-          startAccessor={(task)=>moment(task.dueDate).subtract(1, 'hours').toDate()}
-          endAccessor={(task)=>moment(task.dueDate).toDate()}
-          onSelectEvent={selected=>this.setState({selected:selected})}
+          ref={this.calendarRef}
         />
       </div>
-    )*/
+    )
+  }
+
+  changeCalendarView(newView) {
+    this.calendarRef.current.getApi().changeView(newView)
+    this.setState({currentView: newView})
   }
 }

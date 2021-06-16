@@ -54,9 +54,9 @@
 }
 
 .frame-container {
-  background-color: $foreground-color;
+  background-color: lighten($foreground-color, 55%);
   border-radius: 3px;
-  padding: 18px 5px 0px;
+  padding: 18px 5px 10px;
 }
 
 hr {
